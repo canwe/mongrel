@@ -1,0 +1,12 @@
+= Mongrel Examples =
+
+Mongrel supports many otions when creating, reading, updating or deleting documents. We show examples of using Mongrel from the Erlang shell. We assume that:
+ * You have compiled the `book_database` module and that the BEAM file is available on the shell's path
+ * You should execute `book_database:populate()` before executing these examples.
+ * You should have at least some familiarity with the Monty Python bookshop sketch... Actually, not really
+
+Examples:
+ * CreateExamples
+ * ReadExamples
+ * UpdateExamples
+ * DeleteExamples
