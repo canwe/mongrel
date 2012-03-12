@@ -1,0 +1,9 @@
+= Creating Documents =
+
+There are two functions for creating documents:
+ * `insert/1`
+ * `insert_all/1`
+
+The `book_database` module illustrates the use of `insert_all`.
+
+== Inserting a Single Document =
