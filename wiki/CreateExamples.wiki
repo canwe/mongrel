@@ -7,3 +7,79 @@ There are two functions for creating documents:
 The `book_database` module illustrates the use of `insert_all`.
 
 == Inserting a Single Document =
+Our book database is missing the book "Biggles Combs his Hair". We can create this entry in the database by using the `mongrel:insert/1` function (as usual, make sure that *mongod* is running and that the database has been populated). The `insert` function returns the object identifier of the new record.
+
+<pre>
+7> {ok, Conn} = mongo:connect(localhost).
+{ok,{connection,{"localhost",27017},<0.63.0>,infinity}}
+8> rr(book_database).
+[author,book,review]
+9> mongrel:do(safe, master, Conn, mongrel_books, fun() ->
+9> mongrel:insert(#book{title = <<"Biggles Combs his Hair">>}) end).
+{ok,{<<79,94,66,196,138,250,150,13,65,0,0,19>>}}
+</pre>
+
+If we now query the database, we get the recently inserted book.
+
+<pre>
+10> book_database:get_all().
+{ok,[#book{
+         '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,11>>},
+         title = 
+             <<"Thirty Days in the Samarkind Desert with the Duchess of Kent">>, 
+         isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,10>>},
+                 first_name = undefined,last_name = <<"Eliott">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,12>>},
+         title = <<"A Hundred and One Ways to start a Fight">>,
+         isbn = undefined,author = undefined,
+         reviews = 
+             [#review{
+                  star_rating = 5,
+                  comment = 
+                      <<"By an Irish gentleman whose name eludes me">>}]},
+     #book{
+         '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,14>>},
+         title = <<"David Copperfield">>,isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,13>>},
+                 first_name = <<"Edmund">>,last_name = <<"Wells">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,15>>},
+         title = <<"Grate Expectations">>,isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,13>>},
+                 first_name = <<"Edmund">>,last_name = <<"Wells">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,17>>},
+         title = <<"Rarnaby Budge">>,isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,16>>},
+                 first_name = <<"Charles">>,last_name = <<"Dikkens">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,94,66,114,138,250,150,13,65,0,0,18>>},
+         title = <<"Olsen's Standard Book of British Birds">>,
+         isbn = undefined,author = undefined,
+         reviews = 
+             [#review{
+                  star_rating = undefined,
+                  comment = <<"Warning: Not the expurgated version.">>},
+              #review{
+                  star_rating = 2,
+                  comment = <<"Might be interesting to bird-watchers.">>}]},
+     #book{
+         '_id' = {<<79,94,66,196,138,250,150,13,65,0,0,19>>},
+         title = <<"Biggles Combs his Hair">>,isbn = undefined,
+         author = undefined,reviews = undefined}]}
+11>    
+</pre>
