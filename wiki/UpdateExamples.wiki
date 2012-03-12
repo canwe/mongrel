@@ -1,0 +1,9 @@
+= Update Examples =
+
+Mongrel has the following functions for updating zero or more documents:
+ * `modify/2`
+ * `replace/2`
+ * `repsert/2`
+ * `save/1`
+
+==Replacing a Document==
