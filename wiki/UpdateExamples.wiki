@@ -33,7 +33,7 @@ ok
 {ok,ok}
 </pre>
 
-If we decide that the second review of "Olsen's Book of British Bird" is a waste of space, we can use the '$pop' modifier to remove it as follows
+If we decide that the second review of "Olsen's Book of British Birds" is a waste of space, we can use the '$pop' modifier to remove it as follows (again, we locate the book using a regex)
 
 <pre>
 25> mongrel:do(safe, master, Conn, mongrel_books, fun() ->
@@ -46,7 +46,8 @@ If we decide that the second review of "Olsen's Book of British Bird" is a waste
 If we invoke `book_database:get_all()` we can see the updated list of books
 
 <pre>
-26> book_database:get_all().                                                    {ok,[#book{
+26> book_database:get_all().   
+{ok,[#book{
          '_id' = {<<79,98,59,46,138,250,150,12,57,0,0,2>>},
          title = 
              <<"Thirty Days in the Samarkind Desert with the Duchess of Kent">>, 
