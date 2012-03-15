@@ -1,4 +1,3 @@
-Featured
 = Mongrel Examples =
 
 Mongrel supports many options for creating, reading, updating or deleting documents. This wiki has examples of using Mongrel from the Erlang shell. We assume that:
