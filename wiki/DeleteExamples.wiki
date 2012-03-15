@@ -7,8 +7,10 @@ Mongrel has the following functions to delete entries from collections
 ==Deleting==
 Supposing that we decide that we don't like the works of Edmund Wells, the following code shows the use of `delete/1` to delete his works from the books collection and the use of `delete_one/1` to delete him from the authors collection. We use a regex to locate Edmund Wells in the authors collection.
 
+<pre>
 19> {ok,Conn}=mongo:connect(localhost).                                         {ok,{connection,{"localhost",27017},<0.85.0>,infinity}}
 20> mongrel:do(safe, master, Conn, mongrel_books, fun() -> 
 20> EdmundWells = mongrel:find_one(#author{first_name={regex, <<"edmund">>, <<"i">>}, last_name={regex, <<"wells">>, <<"i">>}}),
 20> mongrel:delete(#book{author=EdmundWells})
 20> end).          
+</pre>
