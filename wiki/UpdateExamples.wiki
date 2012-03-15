@@ -20,7 +20,7 @@ The code (run in the shell) below shows how we can add a review for "Rarnaby Bud
 </pre>
 
 ==Modifying Documents==
-We inadvertently misspelled the title of Edmund Wells' magnus opus as "David Copperfield" with two "p"s. We use regex to find the book and to correct its title.
+We inadvertently misspelled the title of Edmund Wells' magnus opus as "David Copperfield" with two "p"s. We use a regex to find the book and a '$set' modifier to correct its title.
 
 <pre>
 21> f().
