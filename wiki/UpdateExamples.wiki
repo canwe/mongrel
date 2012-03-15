@@ -10,7 +10,8 @@ Mongrel has the following functions for updating zero or more documents:
 The code (run in the shell) below shows how we can add a review for "Rarnaby Budge" by Charles Dikkens (with two "k"s). We get the book and then replace it with an updated book record containing a review.
 
 <pre>
-12> {ok,Conn}=mongo:connect(localhost).                                         {ok,{connection,{"localhost",27017},<0.70.0>,infinity}}
+12> {ok,Conn}=mongo:connect(localhost).
+{ok,{connection,{"localhost",27017},<0.70.0>,infinity}}
 13> mongrel:do(safe, master, Conn, mongrel_books, fun() ->                      
 13> Book = mongrel:find_one(#book{title= <<"Rarnaby Budge">>}),                 
 13> mongrel:replace(Book, Book#book{reviews = [#review{comment= <<"The well known Dutch author surpasses himself!">>}]}) 
