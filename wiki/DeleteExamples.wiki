@@ -5,7 +5,7 @@ Mongrel has the following functions to delete entries from collections
  * delete_one/1
 
 ==Deleting==
-Supposing that we decide that we don't like the works of Edmund Wells, the following code shows the use of `delete/1` to delete his works from the books collection and the use of `delete_one/1` to delete him from the authors collection. We use a regex to locate Edmund Wells in the authors collection.
+Supposing that we decide that we don't like the works of Edmund Wells, the following code shows the use of `delete/1` to delete his works from the books collection and the use of `delete_one/1` to delete him from the authors collection. 
 
 <pre>
 6> {ok,Conn}=mongo:connect(localhost).
