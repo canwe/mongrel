@@ -11,3 +11,15 @@ Mongrel has the following functions for reading documents:
  * `find_one/2`
  * `find_one/3`
  
+==Counting Documents==
+The example code below shows how to count all the books written by Edmund Wells.
+
+<pre>
+11> {ok,Conn}=mongo:connect(localhost).
+{ok,{connection,{"localhost",27017},<0.68.0>,infinity}}
+12> mongrel:do(safe, master, Conn, mongrel_books, fun() ->  
+12> EdmundWells = mongrel:find_one(#author{first_name= <<"Edmund">>, last_name= <<"Wells">>}),
+12> mongrel:count(#book{author=EdmundWells})  
+12> end).       
+{ok,2}
+</pre>
