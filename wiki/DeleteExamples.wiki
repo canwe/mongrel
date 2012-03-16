@@ -8,9 +8,47 @@ Mongrel has the following functions to delete entries from collections
 Supposing that we decide that we don't like the works of Edmund Wells, the following code shows the use of `delete/1` to delete his works from the books collection and the use of `delete_one/1` to delete him from the authors collection. We use a regex to locate Edmund Wells in the authors collection.
 
 <pre>
-19> {ok,Conn}=mongo:connect(localhost).                                         {ok,{connection,{"localhost",27017},<0.85.0>,infinity}}
-20> mongrel:do(safe, master, Conn, mongrel_books, fun() -> 
-20> EdmundWells = mongrel:find_one(#author{first_name={regex, <<"edmund">>, <<"i">>}, last_name={regex, <<"wells">>, <<"i">>}}),
-20> mongrel:delete(#book{author=EdmundWells})
-20> end).          
+6> {ok,Conn}=mongo:connect(localhost).
+{ok,{connection,{"localhost",27017},<0.57.0>,infinity}}
+7> mongrel:do(safe, master, Conn, mongrel_books, fun() ->
+7> EdmundWells = mongrel:find_one(#author{first_name= <<"Edmund">>, last_name= <<"Wells">>}),
+7> mongrel:delete(#book{author=EdmundWells}),
+7> mongrel:delete_one(EdmundWells)
+7> end).
+{ok,ok}
+</pre>
+
+If we query the database from the mongo shell we can see that Edmund Wells has been deleted from the author collection and his books deleted from the book collection
+
+<pre>
+> use mongrel_books
+switched to db mongrel_books
+> db.author.find()
+{ "_id" : ObjectId("4f62cb0c8afa961212000001"), "last_name" : "Eliott" }
+{ "_id" : ObjectId("4f62cb0c8afa961212000007"), "first_name" : "Charles", "last_name" : "Dikkens" }
+> db.book.find()
+{ "_id" : ObjectId("4f62cb0c8afa961212000002"), "title" : "Thirty Days in the Samarkind Desert with the Duchess of Kent", 
+        "author" : { "#type" : "author", "#id" : ObjectId("4f62cb0c8afa961212000001") } }
+{ "_id" : ObjectId("4f62cb0c8afa961212000003"), "title" : "A Hundred and One Ways to start a Fight", "reviews" : [
+	{
+		"#type" : "review",
+		"star_rating" : 5,
+		"comment" : "By an Irish gentleman whose name eludes me"
+	}
+] }
+{ "_id" : ObjectId("4f62cb0c8afa961212000008"), "title" : "Rarnaby Budge", 
+        "author" : { "#type" : "author", "#id" : ObjectId("4f62cb0c8afa961212000007") } }
+{ "_id" : ObjectId("4f62cb0c8afa961212000009"), "title" : "Olsen's Standard Book of British Birds", "reviews" : [
+	{
+		"#type" : "review",
+		"comment" : "Warning: Not the expurgated version."
+	},
+	{
+		"#type" : "review",
+		"star_rating" : 2,
+		"comment" : "Might be interesting to bird-watchers."
+	}
+] }
+> 
+
 </pre>
