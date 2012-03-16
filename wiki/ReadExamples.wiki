@@ -1,1 +1,13 @@
 = Read Examples =
+
+Mongrel has the following functions for reading documents:
+ * `count/1`
+ * `count/2`
+ * `find/1`
+ * `find/2`
+ * `find/3`
+ * `find/4`
+ * `find_one/1`
+ * `find_one/2`
+ * `find_one/3`
+ 
