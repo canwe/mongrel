@@ -1,0 +1,19 @@
+= Update Modifiers =
+
+MongoDB has the following modifiers for updating part of a document:
+
+ * $set
+ * $unset
+ * $inc
+ * $push
+ * $pop
+ * $pull
+ * $each
+ * $addToSet
+
+Some care is needed when using modifiers with Mongrel and nested documents. Modifiers can be used to update a nested record only if the nested record does not have an '_id' field. If the nested document has an '_id' field, the nested document is not embedded in the outer document but stored in its own collection and cannot be updated by accessing the outer document.
+
+For example, this code to add add review to "Olsen's Standard Book of British Birds" succeeds since the review being added is an embedded document
+
+<pre>
+</pre>
