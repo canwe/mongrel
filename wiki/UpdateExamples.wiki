@@ -7,7 +7,9 @@ Mongrel has the following functions for updating zero or more documents:
  * `save/1`
 
 ==Replacing a Document==
-The code (run in the shell) below shows how we can add a review for "Rarnaby Budge" by Charles Dikkens (with two "k"s). We get the book and then replace it with an updated book record containing a review.
+The simplest way to update a document, is to replace the entire document.
+
+The code below shows how we can add a review for "Rarnaby Budge" by Charles Dikkens (with two "k"s). To update the document, we get the book record and then replace it with an updated book record containing a review.
 
 <pre>
 12> {ok,Conn}=mongo:connect(localhost).
