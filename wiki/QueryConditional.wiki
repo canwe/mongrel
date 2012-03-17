@@ -1,6 +1,6 @@
 = Mongrel and Query Conditionals =
 
-!MongoDB supports the query operators or conditionals in read, update and delete functions to restrict the number of affected documents. You can use the following conditionals with Mongrel
+MongoDB supports the query operators or conditionals in read, update and delete functions to restrict the number of affected documents. You can use the following conditionals with Mongrel
 
  * $all
  * $and
