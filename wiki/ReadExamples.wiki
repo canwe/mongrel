@@ -25,3 +25,20 @@ ok
 12> end).       
 {ok,2}
 </pre>
+
+Using the Mongrel API to find all the books not written by Edmund Wells is more complicated, and we have to use a '$ne' QueryConditional
+
+<pre>
+16> mongrel:do(safe, master, Conn, mongrel_books, fun() ->                      16> EdmundWells=mongrel:find_one(#author{first_name= <<"Edmund">>, last_name= <<"Wells">>}),
+16> mongrel:count(#book{author=#author{'_id'={'$ne', EdmundWells#author.'_id'}}})           
+16> end).
+{ok,2}
+</pre>
+
+That query may be seen as so complicated that it may be simpler use the `mongo` count/2 function instead. Contrast the above code with the code below.
+
+<pre>
+11> mongrel:do(safe, master, Conn, mongrel_books, fun() ->                      11> EdmundWells=mongrel:find_one(#author{first_name= <<"Edmund">>, last_name= <<"Wells">>}),
+11> mongo:count(book, {'author.#id', {'$ne', EdmundWells#author.'_id'}})        11> end).   
+{ok,4}
+</pre>
