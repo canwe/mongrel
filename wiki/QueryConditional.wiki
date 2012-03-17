@@ -1,6 +1,6 @@
 = Mongrel and Query Conditionals =
 
-MongoDB supports the query operators or conditionals in read, update and delete functions to restrict the number of affected documents. You can use the following conditionals with Mongrel
+MongoDB supports "query operators" or "query conditionals" in read, update and delete functions to restrict the number of affected documents. You can use the following conditionals with Mongrel
 
  * $all
  * $and
@@ -14,7 +14,9 @@ MongoDB supports the query operators or conditionals in read, update and delete 
  * $or
  * $size
 
-Query operators allows for some quite powerful queries to be written concisely. For example, the code below finds all books that have precisely two reviews.
+A query conditional is expressed as a tuple of {key, value} pairs where the key is one of the above operators. For example, {'$in', [1,2,4]} limits results so that only documents where some value is 1, 2 or 4 will be read, updated or deleted. Similarly {'$gt', 7, '$lte', 10} will ensure that some value is greater than 7 but less than or equal to 10.
+
+Query operators allow for some quite powerful queries to be written concisely. For example, the code below finds all books that have precisely two reviews.
 
 <pre>
 29> {ok,Conn}=mongo:connect(localhost).                       
@@ -38,7 +40,7 @@ Query operators allows for some quite powerful queries to be written concisely. 
 </pre>
 
 == Query Conditionals and Nested Documents ==
-Query operators can get messy when referencing nested documents. You might find it easier to use the `mongo` module rather than mongrel. If you use `mongo`, you might lose some type-safety associated with records but improve readability. For example
+Query operators can get messy when referencing nested documents. When wanting to restrict a result set based on the value in a nested document, you might find it easier to use the `mongo` module directly rather than `mongrel`. If you use `mongo`, you might lose some type-safety associated with records but improve readability. For example
 
 <pre>
 mongrel:count(#book{author=#author{'_id'={'$ne', EdmundWells#author.'_id'}}}) 
