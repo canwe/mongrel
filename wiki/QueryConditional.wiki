@@ -1,0 +1,53 @@
+= Mongrel and Query Conditionals =
+
+!MongoDB supports the query operators or conditionals in read, update and delete functions to restrict the number of affected documents. You can use the following conditionals with Mongrel
+
+ * $all
+ * $and
+ * $exists
+ * $gt an $gte
+ * $lt and $lte
+ * $in
+ * $mod
+ * $nin
+ * $not
+ * $or
+ * $size
+
+Query operators allows for some quite powerful queries to be written concisely. For example, the code below finds all books that have precisely two reviews.
+
+<pre>
+29> {ok,Conn}=mongo:connect(localhost).                       
+{ok,{connection,{"localhost",27017},<0.127.0>,infinity}}
+30> mongrel:do(safe, master, Conn, mongrel_books, fun() ->    
+30> Cursor=mongrel:find(#book{reviews={'$size', 2}}),     
+30> mongrel_cursor:rest(Cursor)                           
+30> end).                                                 
+{ok,[#book{
+         '_id' = {<<79,100,63,164,138,250,150,17,130,0,0,9>>},
+         title = <<"Olsen's Standard Book of British Birds">>,
+         isbn = undefined,author = undefined,
+         reviews = 
+             [#review{
+                  star_rating = undefined,
+                  comment = <<"Warning: Not the expurgated version.">>},
+              #review{
+                  star_rating = 2,
+                  comment = <<"Might be interesting to bird-watchers.">>}]}]}
+31> 
+</pre>
+
+== Query Conditionals and Nested Documents ==
+Query operators can get messy when referencing nested documents. You might find it easier to use the `mongo` module rather than mongrel. If you use `mongo`, you might lose some type-safety associated with records but improve readability. For example
+
+<pre>
+mongrel:count(#book{author=#author{'_id'={'$ne', EdmundWells#author.'_id'}}}) 
+</pre>
+is more verbose and consequently less readable than
+<pre>
+mongo:count(book, {'author.#id', {'$ne', EdmundWells#author.'_id'}})
+</pre>
+
+
+ 
+ 
