@@ -47,7 +47,7 @@ That query may be seen as so complicated that it may be simpler use the `mongo` 
 </pre>
 
 ==Finding Projections of Documents==
-Suppose that we want to find all book titles that don't have an upper- or lower-case 'H' anywhere in the title. The query below shows how we get a cursor to the result set. The second argument to the find/2 function gets a projection of only the book titles.
+Suppose that we want to find all book titles that don't have an upper- or lower-case 'H' anywhere in the title. The query below shows how we get a cursor to the result set. The second argument to the find/2 function gets a projection of only the book titles. We write a somewhat clumsy expression that uses both a regular expression and a QueryConditional ('$not') for illustrative purposes.
 
 <pre>
 17> {ok, Cursor}=mongrel:do(safe, master, Conn, mongrel_books, fun() ->         
@@ -71,6 +71,4 @@ Suppose that we want to find all book titles that don't have an upper- or lower-
 22> 
 
 </pre>
-
-
 
