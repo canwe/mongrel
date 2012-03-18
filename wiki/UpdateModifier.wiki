@@ -19,10 +19,13 @@ Updates using modifiers are atomic when used with the MongoDB driver. Updates us
 For example, suppose we want to find all books or which we haven't specified an author and that we want to (bizarrely) specify the author of those books as anonymous as in the code below
 
 <pre>
-26> {ok, Conn}=mongo:connect(localhost).                                        {ok,{connection,{"localhost",27017},<0.107.0>,infinity}}
+26> {ok, Conn}=mongo:connect(localhost).  
+{ok,{connection,{"localhost",27017},<0.107.0>,infinity}}
 27> mongrel:do(safe, master, Conn, mongrel_books, fun() ->
 27> Anon=#author{last_name= <<"Anonymous">>, '_id'=mongrel_types:id()},         
 27> mongrel:modify(#book{author= {'$exists', false}}, {'$set', #book{author=Anon}})
-27> end).                                                                       {ok,ok}
-
+27> end).
+{ok,ok}
 </pre>
+
+The code above would result in updates to both the book collection and an insert to the author collection to add the new (anonymous) author. The updates to the book collection and the author collection are obviously not atomic.
