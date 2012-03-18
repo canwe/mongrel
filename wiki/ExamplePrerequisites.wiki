@@ -1,0 +1,89 @@
+= Prequisites =
+
+The following trace from the shell shows the output from the shell if you successfully compile the `book_database' and start the mongodb and mongrel applications. You should also have started the mongod daemon on localhost.
+
+<pre>
+Eshell V5.8.3  (abort with ^G)
+1> c(book_database).
+{ok,book_database}
+2> application:start(mongodb).
+ok
+3> application:start(mongrel).
+ok
+4> rr(book_database).
+[author,book,review]
+5> book_database:add_mappings().
+ok
+6> book_database:populate().
+{ok,[{<<79,101,245,132,138,250,150,16,247,0,0,2>>},
+     {<<79,101,245,132,138,250,150,16,247,0,0,3>>},
+     {<<79,101,245,132,138,250,150,16,247,0,0,5>>},
+     {<<79,101,245,132,138,250,150,16,247,0,0,6>>},
+     {<<79,101,245,132,138,250,150,16,247,0,0,8>>},
+     {<<79,101,245,132,138,250,150,16,247,0,0,9>>}]}
+7> 
+</pre>
+
+If everything worked, you should be able to see book and author collections in the MongoDB mongrel_books database.
+
+From the erlang shell, you can check that the database was populated
+
+<pre>
+7> book_database:get_all().
+{ok,[#book{
+         '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,2>>},
+         title = 
+             <<"Thirty Days in the Samarkind Desert with the Duchess of Kent">>, 
+         isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,1>>},
+                 first_name = undefined,last_name = <<"Eliott">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,3>>},
+         title = <<"A Hundred and One Ways to start a Fight">>,
+         isbn = undefined,author = undefined,
+         reviews = 
+             [#review{
+                  star_rating = 5,
+                  comment = 
+                      <<"By an Irish gentleman whose name eludes me">>}]},
+     #book{
+         '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,5>>},
+         title = <<"David Copperfield">>,isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,4>>},
+                 first_name = <<"Edmund">>,last_name = <<"Wells">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,6>>},
+         title = <<"Grate Expectations">>,isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,4>>},
+                 first_name = <<"Edmund">>,last_name = <<"Wells">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,8>>},
+         title = <<"Rarnaby Budge">>,isbn = undefined,
+         author = 
+             #author{
+                 '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,7>>},
+                 first_name = <<"Charles">>,last_name = <<"Dikkens">>},
+         reviews = undefined},
+     #book{
+         '_id' = {<<79,101,245,132,138,250,150,16,247,0,0,9>>},
+         title = <<"Olsen's Standard Book of British Birds">>,
+         isbn = undefined,author = undefined,
+         reviews = 
+             [#review{
+                  star_rating = undefined,
+                  comment = <<"Warning: Not the expurgated version.">>},
+              #review{
+                  star_rating = 2,
+                  comment = <<"Might be interesting to bird-watchers.">>}]}]}
+8> 
+</pre>
+
