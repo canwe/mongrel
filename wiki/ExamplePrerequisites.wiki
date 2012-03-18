@@ -1,6 +1,6 @@
 = Prequisites =
 
-The following trace from the shell shows the output from the shell if you successfully compile the `book_database' and start the mongodb and mongrel applications. You should also have started the mongod daemon on localhost.
+The following trace from the shell shows the output from the shell if you successfully compile the `book_database` and start the mongodb and mongrel applications. You should also have started the mongod daemon on localhost.
 
 <pre>
 Eshell V5.8.3  (abort with ^G)
@@ -86,4 +86,3 @@ From the erlang shell, you can check that the database was populated
                   comment = <<"Might be interesting to bird-watchers.">>}]}]}
 8> 
 </pre>
-
