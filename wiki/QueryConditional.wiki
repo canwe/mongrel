@@ -40,7 +40,7 @@ Query operators allow for some quite powerful queries to be written concisely. F
 </pre>
 
 == Query Conditionals and Nested Documents ==
-Query operators can get messy when referencing nested documents. When wanting to restrict a result set based on the value in a nested document, you might find it easier to use the `mongo` module directly rather than `mongrel`. If you use `mongo`, you might lose some type-safety associated with records but improve readability. For example
+Query operators can get messy when referencing nested documents; i.e if there is an association between documents. When wanting to restrict a result set based on the value in a nested document, you might find it easier to use the `mongo` module directly rather than `mongrel`. If you use `mongo`, you might lose some type-safety associated with records but improve readability. For example
 
 <pre>
 mongrel:count(#book{author=#author{'_id'={'$ne', EdmundWells#author.'_id'}}}) 
