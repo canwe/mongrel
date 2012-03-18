@@ -11,4 +11,18 @@ MongoDB has the following modifiers for updating part of a document:
  * $each
  * $addToSet
 
-Some care is needed when using modifiers with Mongrel and nested documents. Modifiers can be used to update a nested record only if the nested record does not have an '_id' field. If the nested document has an '_id' field, the nested document is not embedded in the outer document but stored in its own collection and cannot be updated by accessing the outer document.
+The modifiers above can be used with Mongrel.
+
+== Modifiers and Nested Documents ==
+Updates using modifiers are atomic when used with the MongoDB driver. Updates using the `modify/2` function are not atomic though when used via the Mongrel API if the update affects a nested reference document, i.e. if there is an *association* between two documents and both are affected by the update.
+
+For example, suppose we want to find all books or which we haven't specified an author and that we want to (bizarrely) specify the author of those books as anonymous as in the code below
+
+<pre>
+26> {ok, Conn}=mongo:connect(localhost).                                        {ok,{connection,{"localhost",27017},<0.107.0>,infinity}}
+27> mongrel:do(safe, master, Conn, mongrel_books, fun() ->
+27> Anon=#author{last_name= <<"Anonymous">>, '_id'=mongrel_types:id()},         
+27> mongrel:modify(#book{author= {'$exists', false}}, {'$set', #book{author=Anon}})
+27> end).                                                                       {ok,ok}
+
+</pre>
