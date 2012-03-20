@@ -72,3 +72,5 @@ Suppose that we want to find all book titles that don't have an upper- or lower-
 
 </pre>
 
+==Advanced Queries==
+TODO
