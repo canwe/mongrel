@@ -73,4 +73,24 @@ Suppose that we want to find all book titles that don't have an upper- or lower-
 </pre>
 
 ==Advanced Queries==
-TODO
+If we want to issue a query where we order our results we need to supply a document to the find function with '$query' and '$orderby' keys. For example, the code below finds all books with a "T" somewhere in the title and returns them in alphabetical order
+
+<pre>
+39> {ok, Cursor}=mongrel:do(safe, master, Conn, mongrel_books, fun() ->         
+39> mongrel:find({'$orderby', #book{title=1}, '$query', #book{title= {regex, <<"t">>, <<"i">>}}}, #book{title=1, '_id'=0})
+39> end). 
+{ok,<0.146.0>}                            
+40> mongrel_cursor:rest(Cursor).  
+[#book{'_id' = undefined,                 
+       title = <<"A Hundred and One Ways to start a Fight">>,
+       isbn = undefined,author = undefined,reviews = undefined},
+ #book{'_id' = undefined,title = <<"Grate Expectations">>,
+       isbn = undefined,author = undefined,reviews = undefined},
+ #book{'_id' = undefined,
+       title = <<"Olsen's Standard Book of British Birds">>,
+       isbn = undefined,author = undefined,reviews = undefined},
+ #book{'_id' = undefined,
+       title = <<"Thirty Days in the Samarkind Desert with the Duchess of Kent">>,
+       isbn = undefined,author = undefined,reviews = undefined}]
+41> 
+</pre>
