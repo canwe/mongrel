@@ -73,6 +73,8 @@ Suppose that we want to find all book titles that don't have an upper- or lower-
 </pre>
 
 ==Advanced Queries==
+MongoDB allows options to be passed with a query such as 'hint' of an index to use when executing the query or that the results must be ordered in some way. We issue queries with options using a tuple of key-value pairs where one key must be '$query' and the corresponding value is a record that we want to use when selecting results.
+
 If we want to issue a query where we order our results we need to supply a document to the find function with '$query' and '$orderby' keys. For example, the code below finds all books with a "T" somewhere in the title and returns them in alphabetical order
 
 <pre>
