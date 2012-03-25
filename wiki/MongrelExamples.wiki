@@ -1,5 +1,5 @@
 #labels Featured
-= Mongrel Examples =
+= Mongrel Tutorial =
 
 Mongrel supports several options for creating, reading, updating or deleting documents. This wiki has examples of using Mongrel from the Erlang shell. For running the example code, it's necessary that:
  * You've started the `mongodb` and `mongrel` applications
