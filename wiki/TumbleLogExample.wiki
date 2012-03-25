@@ -15,5 +15,45 @@ With varying levels of effort, the items above could probably be added to Mongre
 ===Embedded versus Reference Documents===
 Both !MongoEngine and !MongrelMapper allow documents to be nested either by reference or by embedding. !MongoEngine requires that a document extend the !EmbeddedDocument class if it must be embedded. !MongrelMapper will embed a document unless it has an `_`id field.
 
+==Tumblelog Module==
+TODO
 
- 
+==Running the sample code==
+We can compile and run the sample code to populate the `tumblelog` database from the shell as follows
+
+<pre>
+1> application:start(mongodb).
+ok
+2> application:start(mongrel).
+ok
+3> c(tumblelog).
+{ok,tumblelog}
+4> rr(tumblelog).
+[comment,image_post,link_post,post,text_post,user]
+5> tumblelog:add_mappings().
+ok
+6> tumblelog:populate().
+{ok,ok}
+</pre>
+
+==Reading from the Database==
+===Getting the titles of all posts===
+The following code shows how to retrieve the titles of all posts by getting a projection of the title field the posts.
+
+<pre>
+9> f(Conn).                                         
+ok
+10> {ok,Conn}=mongo:connect(localhost).              
+{ok,{connection,{"localhost",27017},<0.72.0>,infinity}}
+11> mongrel:do(safe, master, Conn, tumblelog, fun()->
+11> Cursor=mongrel:find(#post{}, #post{'_id'=0, title=1}),
+11> mongrel_cursor:rest(Cursor)                           
+11> end).                                                 
+{ok,[#post{'_id' = undefined,title = undefined,
+           author = undefined,tags = undefined,comments = undefined,
+           body = undefined},
+     #post{'_id' = undefined,title = undefined,
+           author = undefined,tags = undefined,comments = undefined,
+           body = undefined}]}
+12> 
+</pre>
