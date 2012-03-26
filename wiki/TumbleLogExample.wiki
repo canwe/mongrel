@@ -67,8 +67,9 @@ ok
 {ok,{connection,{"localhost",27017},<0.73.0>,infinity}}
 12> mongrel:do(safe, master, Conn, tumblelog, fun()->     
 12> Cursor=mongrel:find(#post{body=#text_post{}}, #post{'_id'=0, body=#text_post{content=1}}),
-12> mongrel_cursor:rest(Cursor)                                                 12> end).     
+12> mongrel_cursor:rest(Cursor)                                                 
+12> end).     
 {ok,[#post{'_id' = undefined,title = undefined,
            author = undefined,tags = undefined,comments = undefined,
-           body = #text_post{content = <<"Took a look at mongoengine today, looks prety cool.">>}}]}
+           body = #text_post{content = <<"Took a look at mongoengine today, looks pretty cool.">>}}]}
 </pre>
