@@ -56,3 +56,19 @@ ok
            title = <<"MongoEngine Documentation">>,author = undefined,
            tags = undefined,comments = undefined,body = undefined}]}
 </pre>
+
+===Retrieving posts of only one type===
+The code snippet below shows how we can retrieve only text posts and then display (using a projection) only the content of the text post.
+
+<pre>
+10> f(Conn).                                              
+ok
+11> {ok,Conn}=mongo:connect(localhost).                   
+{ok,{connection,{"localhost",27017},<0.73.0>,infinity}}
+12> mongrel:do(safe, master, Conn, tumblelog, fun()->     
+12> Cursor=mongrel:find(#post{body=#text_post{}}, #post{'_id'=0, body=#text_post{content=1}}),
+12> mongrel_cursor:rest(Cursor)                                                 12> end).     
+{ok,[#post{'_id' = undefined,title = undefined,
+           author = undefined,tags = undefined,comments = undefined,
+           body = #text_post{content = <<"Took a look at mongoengine today, looks prety cool.">>}}]}
+</pre>
