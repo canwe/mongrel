@@ -20,7 +20,7 @@ The code below (found in the `tumblelog.erl` module in the `src_examples` direct
 `post` record with the particular record type corresponding to the blog posting
 (text, image or link). Users and posts must be stored in their own collections (so they have `_`id fields) while comments must be embedded in `post` documents (and don't have object identifiers).
 
-<pre>
+<code>
 %% This example code is a rough port of the MongoEngine example at 
 %% http://mongoengine.org/docs/v0.5/tutorial.html
 -module(tumblelog).
@@ -59,7 +59,7 @@ populate() ->
 					   mongrel:insert_all([Post1, Post2]),
 					   mongo_connect:close(Conn)
 			   end).
-</pre>
+</code>
 
 ==Running the sample code==
 We can compile and run the sample code to populate the `tumblelog` database from the shell as follows. We import the record definitions from the `tumblelog` module using the `rr` shell function.
