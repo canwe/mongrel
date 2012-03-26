@@ -73,3 +73,13 @@ ok
            author = undefined,tags = undefined,comments = undefined,
            body = #text_post{content = <<"Took a look at mongoengine today, looks pretty cool.">>}}]}
 </pre>
+
+===Finding posts by tag===
+The code below shows how we can count all posts that have been tagged with 'mongodb'.
+
+<pre>
+13> f(Conn).                                                                    ok            
+14> {ok,Conn}=mongo:connect(localhost).                                         {ok,{connection,{"localhost",27017},<0.80.0>,infinity}}
+15> mongrel:do(safe, master, Conn, tumblelog, fun()->                           15> mongrel:count(#post{tags= {'$in', [<<"mongodb">>]}})                        15> end).                     
+{ok,1}
+</pre>
