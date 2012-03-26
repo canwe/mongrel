@@ -41,19 +41,18 @@ ok
 The following code shows how to retrieve the titles of all posts by getting a projection of the title field the posts.
 
 <pre>
-9> f(Conn).                                         
+7> f(Conn).
 ok
-10> {ok,Conn}=mongo:connect(localhost).              
-{ok,{connection,{"localhost",27017},<0.72.0>,infinity}}
-11> mongrel:do(safe, master, Conn, tumblelog, fun()->
-11> Cursor=mongrel:find(#post{}, #post{'_id'=0, title=1}),
-11> mongrel_cursor:rest(Cursor)                           
-11> end).                                                 
-{ok,[#post{'_id' = undefined,title = undefined,
-           author = undefined,tags = undefined,comments = undefined,
-           body = undefined},
-     #post{'_id' = undefined,title = undefined,
-           author = undefined,tags = undefined,comments = undefined,
-           body = undefined}]}
-12> 
+8> {ok,Conn}=mongo:connect(localhost).
+{ok,{connection,{"localhost",27017},<0.66.0>,infinity}}
+9> mongrel:do(safe, master, Conn, tumblelog, fun()->
+9> Cursor=mongrel:find(#post{}, #post{'_id'=0, title=1}),
+9> mongrel_cursor:rest(Cursor)
+9> end).
+{ok,[#post{'_id' = undefined,
+           title = <<"Fun with MongoeEngine">>,author = undefined,
+           tags = undefined,comments = undefined,body = undefined},
+     #post{'_id' = undefined,
+           title = <<"MongoEngine Documentation">>,author = undefined,
+           tags = undefined,comments = undefined,body = undefined}]}
 </pre>
