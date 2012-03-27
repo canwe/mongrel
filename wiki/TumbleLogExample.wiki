@@ -15,10 +15,13 @@ With varying levels of effort, the items above could probably be added to Mongre
 ===Embedded versus Reference Documents===
 Both !MongoEngine and !MongrelMapper allow documents to be nested either by reference or by embedding. !MongoEngine requires that a document extend the !EmbeddedDocument class if it must be embedded. !MongrelMapper will embed a document unless it has an `_`id field.
 
+
 ==Tumblelog Module==
 The code below (found in the `tumblelog.erl` module in the `src_examples` directory) shows that we define six record types. We populate the body field of a
-`post` record with the particular record type corresponding to the blog posting
-(text, image or link). Users and posts must be stored in their own collections (so they have `_`id fields) while comments must be embedded in `post` documents (and don't have object identifiers).
+`post` record with the particular record type corresponding to the blog posting type
+(text, image or link). By comparison, !MongoEngine uses inheritance to support the three types of blog post. 
+
+Users and posts must be stored in their own collections (so they have `_`id fields) while comments must be embedded in `post` documents (and don't have object identifiers).
 
 <code>
 %% This example code is a rough port of the MongoEngine example at 
@@ -101,7 +104,7 @@ ok
 </pre>
 
 ===Retrieving posts of only one type===
-The code snippet below shows how we can retrieve only text posts and then display (using a projection) only the content of the text post.
+The code snippet below shows how we can retrieve only text posts and then display (using a projection) the content of the text post.
 
 <pre>
 10> f(Conn).                                              
