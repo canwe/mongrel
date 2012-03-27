@@ -79,7 +79,7 @@ ok
 5> tumblelog:add_mappings().
 ok
 6> tumblelog:populate().
-{ok,ok}
+ok
 </pre>
 
 ==Reading from the Database==
