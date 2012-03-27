@@ -1,6 +1,6 @@
 = Tumblelog Example =
 
-The !MongoEngine <a href="http://mongoengine.org/docs/v0.5/tutorial.html">tutorial</a> illustrates mapping Python objects to MongoDB documents using a _tumblelog_ example. It's instructive to read the !MongoEmgine tutorial before reading further (in particular, the tutorial defines what a 'tumblelog' is).
+The !MongoEngine <a href="http://mongoengine.org/docs/v0.5/tutorial.html">tutorial</a> illustrates mapping Python objects to MongoDB documents using a _tumblelog_ example. It's instructive to read the !MongoEngine tutorial before reading further (in particular, the tutorial defines what a 'tumblelog' is).
 
 == Differences between !MongoEngine and !MongrelMapper ==
 === Mongrel's Limitations===
