@@ -10,7 +10,7 @@ The purpose of this example was to check that Mongrel can provide similar functi
  # Mongrel doesn't support cascading deletes
  # Mongrel requires that if a document has an `_`id' field, that the `_`id field is populated by the user.
 
-With varying levels of effort, the items above could probably be added to Mongrel.
+With varying levels of effort, the first three items above could probably be added to Mongrel.
 
 ===Embedded versus Reference Documents===
 Both !MongoEngine and !MongrelMapper allow documents to be nested either by reference or by embedding. !MongoEngine requires that a document extend the !EmbeddedDocument class if it must be embedded. !MongrelMapper will embed a document unless it has an `_`id field.
