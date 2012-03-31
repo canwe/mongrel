@@ -23,7 +23,7 @@ The code below shows how we can add a review for "Rarnaby Budge" by Charles Dikk
 
 ==Modifying Documents==
 If we only want to update part of a document, it is frequently possible to use an UpdateModifier to replace only part of the document. For example,
-we misspelled the title of Edmund Wells' magnus opus as "David Copperfield" with two "p"s and want to correct. We use a regex to find the book (by searching for a book whose title starts case-insentively with "david cop")  and a '$set' modifier to correct its title.
+we misspelled the title of Edmund Wells' magnus opus as "David Copperfield" with two "p"s and want to correct it. We can use a regex to find the book (by searching for a book whose title starts case-insentively with "david cop")  and a '$set' modifier to correct its title.
 
 <pre>
 21> f().
