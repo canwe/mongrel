@@ -11,6 +11,42 @@ Mongrel has the following functions for reading documents:
  * `find_one/2`
  * `find_one/3`
  
+==Basic Finds==
+To find a single author, we can use the `find_one/1` function:
+
+<pre>
+10> {ok, Conn}=mongo:connect(localhost).
+{ok,{connection,{"localhost",27017},<0.64.0>,infinity}}
+11> mongrel:do(safe,master,Conn,mongrel_books,fun()->
+11> mongrel:find_one(#author{})                      
+11> end).                                            
+{ok,#author{'_id' = {<<79,138,150,247,138,250,150,23,62,
+                       0,0,1>>},
+            first_name = undefined,last_name = <<"Eliott">>}}
+12> 
+</pre>
+
+To get all authors, we can use the `find/1` function that returns a `mongrel_cursor`. The `mongrel_cursor:rest/1` function returns all the results from the cursor. See the MongrelCursors page for some details of what you should know about Mongrel cursors; the most important point is that you *cannot* use a Mongrel cursor outside of the scope of the `mongrel:do/5` function. 
+
+<pre>
+12> f().                                             
+ok
+13> {ok, Conn}=mongo:connect(localhost).             
+{ok,{connection,{"localhost",27017},<0.69.0>,infinity}}
+14> mongrel:do(safe,master,Conn,mongrel_books,fun()->
+14> Cursor=mongrel:find(#author{}),                  
+14> mongrel_cursor:rest(Cursor)
+14> end).
+{ok,[#author{'_id' = {<<79,138,150,247,138,250,150,23,62,
+                        0,0,1>>},
+             first_name = undefined,last_name = <<"Eliott">>},
+     #author{'_id' = {<<79,138,150,247,138,250,150,23,62,0,0,4>>},
+             first_name = <<"Edmund">>,last_name = <<"Wells">>},
+     #author{'_id' = {<<79,138,150,247,138,250,150,23,62,0,0,7>>},
+             first_name = <<"Charles">>,last_name = <<"Dikkens">>}]}
+15> 
+</pre>
+
 ==Counting Documents==
 The example code below shows how to count all the books written by Edmund Wells.
 
