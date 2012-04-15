@@ -47,29 +47,24 @@ That query may be seen as so complicated that it may be simpler use the `mongo` 
 </pre>
 
 ==Finding Projections of Documents==
-Suppose that we want to find all book titles that don't have an upper- or lower-case 'H' anywhere in the title. The query below shows how we get a cursor to the result set. The second argument to the find/2 function gets a projection of only the book titles. We write a somewhat clumsy expression that uses both a regular expression and a QueryConditional ('$not') for illustrative purposes.
+Suppose that we want to find all book titles that don't have an upper- or lower-case 'H' anywhere in the title. The query below shows a suitable query. The second argument to the find/2 function gets a projection of only the book titles. We write a somewhat clumsy expression that uses both a regular expression and a QueryConditional ('$not') for illustrative purposes.
 
 <pre>
-17> {ok, Cursor}=mongrel:do(safe, master, Conn, mongrel_books, fun() ->         
-17> mongrel:find(#book{title= {'$not', {regex, <<"h">>, <<"i">>}}}, #book{title=1})   
-17> end).
-{ok,<0.100.0>}
-18> mongrel_cursor:next(Cursor).
-#book{'_id' = {<<79,100,63,164,138,250,150,17,130,0,0,5>>},
-      title = <<"David Copperfield">>,isbn = undefined,
-      author = undefined,reviews = undefined}
-19> mongrel_cursor:next(Cursor).
-#book{'_id' = {<<79,100,63,164,138,250,150,17,130,0,0,6>>},
-      title = <<"Grate Expectations">>,isbn = undefined,
-      author = undefined,reviews = undefined}
-20> mongrel_cursor:next(Cursor).
-#book{'_id' = {<<79,100,63,164,138,250,150,17,130,0,0,8>>},
-      title = <<"Rarnaby Budge">>,isbn = undefined,
-      author = undefined,reviews = undefined}
-21> mongrel_cursor:next(Cursor).
-{}
-22> 
-
+18> {ok, Books}=mongrel:do(safe, master, Conn, mongrel_books, fun() ->          
+18> Cursor=mongrel:find(#book{title= {'$not', {regex, <<"h">>, <<"i">>}}}, #book{title=1}),     
+18> mongrel_cursor:rest(Cursor)
+18> end).
+{ok,[#book{'_id' = {<<79,137,174,200,138,250,150,14,249,
+                      0,0,14>>},
+           title = <<"David Copperfield">>,isbn = undefined,
+           author = undefined,reviews = undefined},
+     #book{'_id' = {<<79,137,174,200,138,250,150,14,249,0,0,15>>},
+           title = <<"Grate Expectations">>,isbn = undefined,
+           author = undefined,reviews = undefined},
+     #book{'_id' = {<<79,137,174,200,138,250,150,14,249,0,0,17>>},
+           title = <<"Rarnaby Budge">>,isbn = undefined,
+           author = undefined,reviews = undefined}]}
+19> 
 </pre>
 
 ==Advanced Queries==
