@@ -50,9 +50,8 @@ ok
 23> 
 </pre>
 
-Trying to use the cursor outside of the scope of the `do/5` funcion throws a `noproc` exception. This is since the cursor process is terminated once the `do/5` function completes.
+Trying to use the cursor outside of the scope of the `do/5` funcfion throws a `noproc` exception. This is since the cursor process is terminated once the `do/5` function completes.
 
 The reason that Mongrel terminates cursors is to avoid memory leaks if an application creates cursors but forgets to close the cursors either explicitly (by invoking the `close/1` function) or implicitly (by invoking the `rest/1` function). 
 
 Earlier releases of Mongrel had the same behavior as the MongoDB driver. If you want to be able to use cursors outside the scope of the `do/5` function, download version 1.0.5 or earlier of Mongrel.
-
