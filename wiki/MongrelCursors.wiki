@@ -2,7 +2,7 @@
 
 Mongrel cursors have two important attributes:
  * Retrieving a result from a cursor may result in a trip to the database.
- * Cursors cannot be used outside of the scope of the `mongrel:do/5` function.
+ * Cursors cannot be used outside of the scope of the `mongrel:do/5` function unless a timeout is specifically set for the cursor.
 
 == Cursors and Multiple Database Visits ==
 The first attribute may be surprising since the point of cursors is to get several results in one read to reduce the overhead of making several visits to the database. The good news is that retrieving a result from a cursor's result set only involves hitting the database if a result references a nested document. If you don't want to hit the database to retrieve nested documents you have two choices:
@@ -52,6 +52,4 @@ ok
 
 Trying to use the cursor outside of the scope of the `do/5` funcfion throws a `noproc` exception. This is since the cursor process is terminated once the `do/5` function completes.
 
-The reason that Mongrel terminates cursors is to avoid memory leaks if an application creates cursors but forgets to close the cursors either explicitly (by invoking the `close/1` function) or implicitly (by invoking the `rest/1` function). 
-
-Earlier releases of Mongrel had the same behavior as the MongoDB driver. If you want to be able to use cursors outside the scope of the `do/5` function, download version 1.0.5 or earlier of Mongrel.
+The reason that Mongrel terminates cursors is to avoid memory leaks if an application creates cursors but forgets to close the cursors either explicitly (by invoking the `close/1` function) or implicitly (by invoking the `rest/1` function). An alternative to preventing the problem of cursor processes never terminating is to explicitly set a timeout; if the cursor is not invoked in the specified time, the cursor terminates. This is illustrated below where the cursor is available outside of the mongrel:do/5 function but terminates after 30 seconds of inactivity.
