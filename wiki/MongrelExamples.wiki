@@ -24,5 +24,5 @@ The following pages contain some material on "query operators" and "update modif
  * QueryConditional
  * UpdateModifier
 
-A page describing some internal details of Mongrel cursors:
+A page describing some differences between Mongrel cursors and MongoDB cursors:
  * MongrelCursors
