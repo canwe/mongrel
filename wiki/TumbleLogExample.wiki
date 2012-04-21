@@ -50,7 +50,7 @@ add_mappings() ->
 
 populate() ->
 	John = #user{?id(), email= <<"jdoe@example.com">>, first_name= <<"John">>, last_name= <<"Doe">>},
-	Post1 = #post{?id(), title= <<"Fun with MongoeEngine">>, author=John, tags=[<<"mongodb">>, <<"mongoengine">>], 
+	Post1 = #post{?id(), title= <<"Fun with MongoEngine">>, author=John, tags=[<<"mongodb">>, <<"mongoengine">>], 
 				  body=#text_post{content= <<"Took a look at mongoengine, looks pretty cool.">>}},
 	Post2 = #post{?id(), title= <<"MongoEngine Documentation">>, author=John, tags=[<<"mongoengine">>],
 				  body=#link_post{link_url= <<"http://tractiondigital.com/labs/mongoengine/docs">>}},
@@ -84,7 +84,7 @@ ok
 
 ==Reading from the Database==
 ===Getting the titles of all posts===
-The following code shows how to retrieve the titles of all posts by getting a projection of the title field the posts.
+The following code shows how to retrieve the titles of all posts by getting a projection of the posts' title fields.
 
 <pre>
 7> f(Conn).
@@ -96,7 +96,7 @@ ok
 9> mongrel_cursor:rest(Cursor)
 9> end).
 {ok,[#post{'_id' = undefined,
-           title = <<"Fun with MongoeEngine">>,author = undefined,
+           title = <<"Fun with MongoEngine">>,author = undefined,
            tags = undefined,comments = undefined,body = undefined},
      #post{'_id' = undefined,
            title = <<"MongoEngine Documentation">>,author = undefined,
