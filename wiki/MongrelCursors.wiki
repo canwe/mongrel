@@ -52,7 +52,7 @@ ok
 
 Trying to use the cursor outside of the scope of the `do/5` funcfion throws a `noproc` exception. This is since the cursor process is terminated once the `do/5` function completes.
 
-The reason that Mongrel terminates cursors is to avoid memory leaks if an application creates cursors but forgets to close the cursors either explicitly (by invoking the `close/1` function) or implicitly (by invoking the `rest/1` function). An alternative to preventing the problem of cursor processes never terminating is to explicitly set a timeout; if the cursor is not invoked in the specified time, the cursor terminates. This is illustrated below where the cursor is available outside of the mongrel:do/5 function but terminates after 30 seconds of inactivity.
+The reason that Mongrel terminates cursors is to avoid memory leaks if an application creates cursors but doesn't close the cursors either explicitly (by invoking the `close/1` function) or implicitly (by invoking the `rest/1` function). An alternative to preventing the problem of cursor processes never terminating is to explicitly set a timeout; if the cursor is not invoked in the specified time, the cursor terminates. This is illustrated below where the cursor is available outside of the mongrel:do/5 function but terminates after 30 seconds of inactivity.
 
 <pre>
 28> f().                                                         
