@@ -5,7 +5,7 @@ Mongrel supports several options for creating, reading, updating or deleting doc
  * You've started the `mongodb` and `mongrel` applications
  * You have compiled the `book_database` module and that the BEAM file is available on the shell's path
  * You've executed `book_database:add_mappings()` to allow the records specified in the `book_database` module to be mapped to documents
- * You've run `book_database:populate()` before executing these examples.
+ * You've run `book_database:populate()` to write documents into MongoDB.
  * You've executed `rr(book_database)` to allow the records specified in the sample module to be available to the shell.
 
 See ExamplePrerequisites for the details of the above steps.
