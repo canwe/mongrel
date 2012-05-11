@@ -1,7 +1,7 @@
 #labels Featured
 = Mongrel Tutorial =
 
-Mongrel supports several options for creating, reading, updating or deleting documents. This wiki has examples of using Mongrel from the Erlang shell. For running the example code, it's necessary that:
+Mongrel supports several options for creating, reading, updating or deleting documents. This wiki has examples of using Mongrel from the Erlang shell. To run the example code, it's necessary that:
  * You've started the `mongodb` and `mongrel` applications
  * You have compiled the `book_database` module and that the BEAM file is available on the shell's path
  * You've executed `book_database:add_mappings()` to allow the records specified in the `book_database` module to be mapped to documents
