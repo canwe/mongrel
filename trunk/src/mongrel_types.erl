@@ -28,27 +28,27 @@
 
 %% External functions
 
-%% @doc Encapsulates a binary value as 3-tuple expected by MongoDB driver.
+%% @doc Encapsulates a binary value as 3-tuple expected by the MongoDB driver.
 -spec(binary(X::binary()) -> {bin, bin, X::binary()}).
 binary(X) when is_binary(X) ->
 	{bin, bin, X}.
 
-%% @doc Encapsulates a UUID as 3-tuple expected by MongoDB driver.
+%% @doc Encapsulates a UUID as 3-tuple expected by the MongoDB driver.
 -spec(uuid(X::binary()) -> {bin, uuid, X::binary()}).
 uuid(X) when is_binary(X) ->
 	{bin, uuid, X}.
 
-%% @doc Encapsulates an MD5 hash as 3-tuple expected by MongoDB driver.
+%% @doc Encapsulates an MD5 hash as 3-tuple expected by the MongoDB driver.
 -spec(md5(X::binary()) -> {bin, md5, X::binary()}).
 md5(X) when is_binary(X) ->
 	{bin, md5, X}.
 
-%% @doc Encapsulates a regex with no options as 3-tuple expected by MongoDB driver.
+%% @doc Encapsulates a regex with no options as 3-tuple expected by the MongoDB driver.
 -spec(regex(X::binary()) -> {regex, X::binary(), binary()}).
 regex(X) when is_binary(X) ->
 	{regex, X, <<>>}.
 
-%% @doc Encapsulates a regex with options as 3-tuple expected by MongoDB driver.
+%% @doc Encapsulates a regex with options as 3-tuple expected by the MongoDB driver.
 -spec(regex(X::binary(), Y::binary()) -> {regex, X::binary(), Y::binary()}).
 regex(X, Y) when is_binary(X) andalso is_binary(Y) ->
 	{regex, X, Y}.
