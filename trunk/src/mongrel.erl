@@ -219,6 +219,7 @@ save(Record) ->
 
 %% Server functions
 
+%% @private
 %% @doc Initializes the server with a write mode, read mode, a connection and database.
 %%      The parameters are stored in the process dictionary so that they can be used
 %%      if a connection is needed by a cursor to access collections.
@@ -226,6 +227,7 @@ save(Record) ->
 init([State]) ->
     {ok, State}.
 
+%% @private
 %% @doc Responds synchronously to server calls.  The action of the do/5 function is executed by
 %%      this function. The process is stopped after this call.
 -spec(handle_call({do, action()}, pid(), #mongrel_connection{}) -> {stop, normal, any(), #mongrel_connection{}}).
@@ -238,21 +240,25 @@ handle_call({do, Action}=_Request, _From, State) ->
 					 end),
     {stop, normal, Reply, State}.
 
+%% @private
 %% @doc Responds asynchronously to messages. The server ignores any asynchronous messages.
 -spec(handle_cast(any(), State::#mongrel_connection{}) -> {noreply, State::#mongrel_connection{}}).
 handle_cast(_Message, State) ->
 	{noreply, State}.
 
+%% @private
 %% @doc Responds to out-of-band messages. The server ignores any such messages.
 -spec(handle_info(any(), State::#mongrel_connection{}) -> {noreply, State::#mongrel_connection{}}).
 handle_info(_Info, State) ->
 	{noreply, State}.
 
+%% @private
 %% @doc Handles the shutdown of the server.
 -spec(terminate(any(), #mongrel_connection{}) -> ok).
 terminate(_Reason, _State) ->
 	ok.
 
+%% @private
 %% @doc Responds to code changes. Any code changes are ignored (the server's state is unchanged).
 -spec(code_change(any(), State::#mongrel_connection{}, any()) -> {ok, State::#mongrel_connection{}}).
 code_change(_OldVersion, State, _Extra) ->

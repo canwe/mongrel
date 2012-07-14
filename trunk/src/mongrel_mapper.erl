@@ -199,12 +199,14 @@ map_modifier(Collection, {ModifierKey, ModifierValue}) when is_atom(ModifierKey)
 
 %% Server functions
 
+%% @private
 %% @doc Initializes the server with the ETS table used to store the
 %%      mappings needed for mapping records to documents.
 -spec(init(EtsTableId::list(integer())) -> {ok, #state{}}).
 init([EtsTableId]) ->
 	{ok, #state{ets_table_id = EtsTableId}}.
 
+%% @private
 %% @doc Responds synchronously to server calls. This function is invoked when a mapping is
 %%      added or a mapping needs to be retrieved.
 -spec(handle_call(Message::tuple(), From::pid(), State::#state{}) -> {reply, Reply::any(), NewState::record()}).
@@ -215,21 +217,25 @@ handle_call({get_mapping, Key}, _From, State) ->
 	Reply = ets:lookup(State#state.ets_table_id, Key),
 	{reply, Reply, State}.
 
+%% @private
 %% @doc Responds asynchronously to messages. Asynchronous messages are ignored.
 -spec(handle_cast(any(), State::#state{}) -> {no_reply, State::#state{}}).
 handle_cast(_Message, State) ->
 	{noreply, State}.
 
+%% @private
 %% @doc Responds to non-OTP messages. Non-OTP messages are ignored.
 -spec(handle_info(any(), State::#state{}) -> {no_reply, State::#state{}}).
 handle_info(_Info, State) ->
 	{noreply, State}.
 
+%% @private
 %% @doc Handles the shutdown of the server.
 -spec(terminate(any(), #state{}) -> ok).
 terminate(_Reason, _State) ->
 	ok.
 
+%% @private
 %% @doc Responds to code changes.
 -spec(code_change(any(), State::#state{}, any()) -> {ok, State::#state{}}).
 code_change(_OldVersion, State, _Extra) ->

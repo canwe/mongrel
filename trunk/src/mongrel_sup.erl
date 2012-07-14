@@ -39,6 +39,7 @@ start_link(EtsTableId) ->
 
 %% Supervisor functions
 
+%% @private
 %% @doc Supervisor callback. Starts the mongrel server.
 -spec(init(list(integer())) -> {ok, {RestartStrategy::tuple(), Servers::list(module())}}).
 init(EtsTableIdList) ->

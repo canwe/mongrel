@@ -104,12 +104,14 @@ set_timeout(Cursor, Timeout) ->
 	
 %% Server functions
 
+%% @private
 %% @doc Initializes the cursor with a MongoDB cursor and connection parameters.
 init([MongoCursor, ReadMode, Connection, Database, Collection, Pid]=_ConnectionParameters) ->
 	monitor(process, Pid),
 	{ok, #state{mongo_cursor=MongoCursor, read_mode=ReadMode, connection=Connection, database = Database, 
 				collection=Collection, parent_process=Pid}, infinity}.
 
+%% @private
 %% @doc Responds to synchronous messages. Synchronous messages are sent to get the next record,
 %%      to get any remaining records, to get the mongo:cursor(), to close the cursor and to set
 %%      the timeout of the cursor.
@@ -137,11 +139,13 @@ handle_call({set_timeout, Timeout}, _From, State) ->
 	{reply, ok, State#state{die_with_parent=false, timeout=Timeout}, Timeout}.
 
 
+%% @private
 %% @doc Responds asynchronously to messages. Asynchronous messages are ignored.
 -spec(handle_cast(any(), State::record()) -> {noreply, State::record()}).
 handle_cast(_Message, State) ->
 	{noreply, State, State#state.timeout}.
 
+%% @private
 %% @doc Responds to non-OTP messages. The messages that are handled are a timeout and the
 %%      the termination of the parent process.
 -spec(handle_info(Message::any(), State::record()) -> {stop, normal, State::record()}|{noreply, State::record()}).
@@ -152,12 +156,14 @@ handle_info(timeout, State) ->
 handle_info(_Info, State) ->
 	{noreply, State, State#state.timeout}.
 
+%% @private
 %% @doc Handles the shutdown of the server.
 -spec(terminate(any(), record()) -> ok).
 terminate(_Reason, State) ->
 	mongo:close_cursor(State#state.mongo_cursor),
 	ok.
 
+%% @private
 %% @doc Responds to code changes. Code change events are ignored.
 -spec(code_change(any(), State::record(), any()) -> {ok, State::record()}).
 code_change(_OldVersion, State, _Extra) ->
