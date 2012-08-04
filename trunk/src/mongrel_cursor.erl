@@ -109,7 +109,7 @@ set_timeout(Cursor, Timeout) ->
 init([MongoCursor, ReadMode, Connection, Database, Collection, Pid]=_ConnectionParameters) ->
 	monitor(process, Pid),
 	{ok, #state{mongo_cursor=MongoCursor, read_mode=ReadMode, connection=Connection, database = Database, 
-				collection=Collection, parent_process=Pid}, infinity}.
+				collection=Collection, parent_process=Pid}}.
 
 %% @private
 %% @doc Responds to synchronous messages. Synchronous messages are sent to get the next record,
