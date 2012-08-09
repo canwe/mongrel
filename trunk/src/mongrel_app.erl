@@ -20,7 +20,7 @@
 
 -behaviour(application).
 
-%% application callbacks
+%% Behavioural exports
 -export([start/2,
 		 stop/1]).
 
