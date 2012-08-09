@@ -34,17 +34,16 @@
 %%      process.
 -spec(start_link(integer()) -> {ok, pid()} | {error, any()}).
 start_link(EtsTableId) ->
-	supervisor:start_link({local, ?SERVER}, ?MODULE, [EtsTableId]).
+	supervisor:start_link({local, ?SERVER}, ?MODULE, EtsTableId).
 
 
 %% Supervisor functions
 
 %% @private
 %% @doc Supervisor callback. Starts the mongrel server.
--spec(init(list(integer())) -> {ok, {RestartStrategy::tuple(), Servers::list(module())}}).
-init(EtsTableIdList) ->
-	[TableId] = EtsTableIdList,
-    Server = {mongrel_mapper, {mongrel_mapper, start_link, [TableId]},
+-spec(init(integer()) -> {ok, {RestartStrategy::tuple(), Servers::list(module())}}).
+init(EtsTableId) ->
+    Server = {mongrel_mapper, {mongrel_mapper, start_link, [EtsTableId]},
 	      permanent, 2000, worker, [mongrel]},
 	RestartStrategy = {one_for_one, 4, 3600}, 
     {ok, {RestartStrategy, [Server]}}.
