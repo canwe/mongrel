@@ -7,8 +7,9 @@ The Mongrel source code can be checked out from the subversion repository using 
 svn checkout http://mongrel.googlecode.com/svn/trunk/ mongrel
 }}}
 
+
 == Compiling the Code ==
-Under Linux, the *make_mongrel.sh* can be used to build the project
+Under Linux, the *make_mongrel.sh* bash script can be used to build the project
 {{{
 cd mongrel
 ./make_mongrel.sh
