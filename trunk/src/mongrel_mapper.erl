@@ -69,7 +69,7 @@ add_mapping({RecordName, FieldIds} = _RecordDescriptor) when is_atom(RecordName)
 	server_call(add_mapping, {RecordName, FieldIds}).
 
 %% @doc Specfies the field identifiers associated with a list of record names.
--spec(add_mappings([{RecordName::atom(), FieldIds::list(atom())}]) -> ok).
+-spec(add_mappings(RecordDescriptors::list({RecordName::atom(), FieldIds::list(atom())})) -> ok).
 add_mappings([]) ->
 	ok;
 add_mappings([Head|Tail]) ->
