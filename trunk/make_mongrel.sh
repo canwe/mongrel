@@ -4,7 +4,8 @@ BUILD_NAME=mongrel-$VERSION
 set -x
 
 # If the archive already exists, delete it
-if [ -f $BUILD_NAME.zip ]; then
+if [ -f $BUILD_NAME.zip ]
+then
     rm $BUILD_NAME.zip
 fi
 
@@ -20,7 +21,15 @@ cp src/*.app $BUILD_NAME/ebin
 erlc -I include -o $BUILD_NAME/tbin test/*.erl
 
 # Run all the tests
+set +x
 erl -noshell -pa $BUILD_NAME/ebin -pa $BUILD_NAME/tbin -s test_all test $BUILD_NAME/tbin -s init stop
+if [ $? -ne 0 ]
+then
+    rm -r $BUILD_NAME
+    echo "Not all tests passed."
+    exit 1
+fi
+set -x
 
 # We don't need to keep the test binaries
 rm -r $BUILD_NAME/tbin

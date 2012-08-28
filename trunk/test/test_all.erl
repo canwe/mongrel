@@ -23,7 +23,8 @@ test([Dir]) ->
 	TestFiles = lists:sort(lists:filter(TestPred, BeamFiles)),
 	TestModules = [erlang:list_to_atom(lists:sublist(F, 1, length(F)-5)) || F <- TestFiles],
 	TestModules2 = [Mod || Mod <- TestModules, Mod =/= test_all],
-	[run_tests(Module) || Module <- TestModules2].
+	[run_tests(Module) || Module <- TestModules2],
+	halt(0).
 
 %%
 %% Local Functions
