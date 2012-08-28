@@ -23,7 +23,8 @@
 
 %% API
 -export([start_link/1, 
-		 add_mapping/1, 
+		 add_mapping/1,
+		 add_mappings/1,
 		 get_mapping/1,
 		 is_mapped/1,
 		 has_id/1,
@@ -66,6 +67,14 @@ start_link(EtsTableId) ->
 add_mapping({RecordName, FieldIds} = _RecordDescriptor) when is_atom(RecordName) ->
 	[true = is_atom(FieldId) || FieldId <- FieldIds],
 	server_call(add_mapping, {RecordName, FieldIds}).
+
+%% @doc Specfies the field identifiers associated with a list of record names.
+-spec(add_mappings([{RecordName::atom(), FieldIds::list(atom())}]) -> ok).
+add_mappings([]) ->
+	ok;
+add_mappings([Head|Tail]) ->
+	add_mapping(Head),
+	add_mappings(Tail).
 
 %% @doc Gets the field identifiers associated with a record name.
 -spec(get_mapping(atom()) -> list(atom())).

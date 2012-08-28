@@ -343,3 +343,33 @@ map_with_nested_doc_without_id_set_is_error_test_() ->
 		 Buzz = #buzz{'_id'=3, z=#buzz{}},
 	     ?assertThrow(_, mongrel_mapper:map(Buzz))
      end}.
+
+add_empty_mappings_test_() ->
+	{setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ok = mongrel_mapper:add_mappings([])
+     end}.
+
+add_single_mappings_test_() ->
+	{setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ok = mongrel_mapper:add_mappings([?mapping(foo)]), 
+		 Foo = #foo{bar=3, baz=5},
+	     {{foo, {bar, 3, baz, 5}}, []} = mongrel_mapper:map(Foo)
+     end}.
+
+add_two_mappings_test_() ->
+	{setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ok = mongrel_mapper:add_mappings([?mapping(bar), ?mapping(foo)]), 
+		 Foo = #foo{bar=3, baz=5},
+		 Bar = #bar{'_id'=9},
+		 {{bar, {'_id', 9}}, []} = mongrel_mapper:map(Bar),
+	     {{foo, {bar, 3, baz, 5}}, []} = mongrel_mapper:map(Foo)
+     end}.
