@@ -23,8 +23,8 @@ test([Dir]) ->
 	TestFiles = lists:sort(lists:filter(TestPred, BeamFiles)),
 	TestModules = [erlang:list_to_atom(lists:sublist(F, 1, length(F)-5)) || F <- TestFiles],
 	TestModules2 = [Mod || Mod <- TestModules, Mod =/= test_all],
-	[run_tests(Module) || Module <- TestModules2],
-	halt(0).
+	TestResults = [run_tests(Module) || Module <- TestModules2],
+	assert_all_tests_passed(TestResults).
 
 %%
 %% Local Functions
@@ -40,7 +40,13 @@ is_test_file(FileName) when length(FileName) >= 5 ->
 is_test_file(_FileName) ->
 	false.
 
-
 run_tests(Module) ->
 	io:format("Running ~p:~n", [Module]),
 	Module:test().
+
+assert_all_tests_passed([]) ->
+	ok;
+assert_all_tests_passed([ok|Tail]) ->
+	assert_all_tests_passed(Tail);
+assert_all_tests_passed([_NotOk|_Tail]) ->
+	halt(1).

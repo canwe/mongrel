@@ -1,7 +1,6 @@
 #! /bin/bash
 VERSION=1.1.7
 BUILD_NAME=mongrel-$VERSION
-set -x
 
 # If the archive already exists, delete it
 if [ -f $BUILD_NAME.zip ]
@@ -16,12 +15,13 @@ mkdir $BUILD_NAME/ebin
 mkdir $BUILD_NAME/tbin
 
 # Compile the source and the tests to separate binary directories
+echo "Compiling..."
 erlc -I include -o $BUILD_NAME/ebin src/*.erl
 cp src/*.app $BUILD_NAME/ebin
 erlc -I include -o $BUILD_NAME/tbin test/*.erl
 
 # Run all the tests
-set +x
+echo "Running tests..."
 erl -noshell -pa $BUILD_NAME/ebin -pa $BUILD_NAME/tbin -s test_all test $BUILD_NAME/tbin -s init stop
 if [ $? -ne 0 ]
 then
@@ -29,12 +29,12 @@ then
     echo "Not all tests passed."
     exit 1
 fi
-set -x
 
 # We don't need to keep the test binaries
 rm -r $BUILD_NAME/tbin
 
 # Create the EDocs
+echo "Generating EDocs..."
 cp overview.edoc $BUILD_NAME/doc
 ./gen_doc.sh $BUILD_NAME/doc
 
@@ -52,7 +52,11 @@ rm $BUILD_NAME/doc/edoc-info
 cp overview.edoc $BUILD_NAME
 
 # Zip it all up.
+echo "Packaging..."
 zip -q $BUILD_NAME.zip -r $BUILD_NAME
+#tar cjf $BUILD_NAME.tar.gz $BUILD_NAME
 rm -r $BUILD_NAME
+
+echo "OK."
 exit 0
 
