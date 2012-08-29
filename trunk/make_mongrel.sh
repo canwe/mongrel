@@ -45,6 +45,7 @@ rsync -p -r --exclude=".*" include $BUILD_NAME
 rsync -p -r --exclude=".*" src_examples $BUILD_NAME
 cp make_mongrel.sh $BUILD_NAME
 cp gen_doc.sh $BUILD_NAME
+cp releases.txt $BUILD_NAME
 
 # Remove some cruft
 rm $BUILD_NAME/doc/overview.edoc
