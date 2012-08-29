@@ -25,7 +25,3 @@
 -define(add_mapping(Record), mongrel_mapper:add_mapping({Record, record_info(fields, Record)})).
 
 -define(id(), '_id'=mongodb_app:gen_objectid()).
-
--define(TYPE_REF, '#type').
-
--define(ID_REF, '#id').

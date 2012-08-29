@@ -48,7 +48,7 @@
 -define(SERVER, ?MODULE).
 
 %% Include files
--include_lib("mongrel_macros.hrl").
+-include("mongrel.hrl").
 
 %% We store the ETS table ID across calls.
 -record(state, {ets_table_id}).

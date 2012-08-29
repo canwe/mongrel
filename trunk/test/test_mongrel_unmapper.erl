@@ -17,6 +17,7 @@
 %% Include files
 -include_lib("eunit/include/eunit.hrl").
 -include_lib("mongrel_macros.hrl").
+-include_lib("mongrel.hrl").
 
 %% records used for testing.
 -record(foo, {bar, baz=4}).

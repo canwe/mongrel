@@ -11,3 +11,7 @@
 % the License.
 
 -record(mongrel_connection, {database, connection, write_mode, read_mode}).
+
+-define(TYPE_REF, '#type').
+
+-define(ID_REF, '#id').
