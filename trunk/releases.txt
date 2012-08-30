@@ -10,3 +10,4 @@ Release history since 1.1.0
         linear time.
 1.2.0 - Added mongrel_mapper:add_mappings function, refactored build script,
         improved edoc comments, other refactorings.
+1.2.1 - Fixed typos, improved build script.
