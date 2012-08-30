@@ -19,8 +19,20 @@ mkdir $BUILD_NAME/tbin
 # Compile the source and the tests to separate binary directories
 echo "Compiling..."
 erlc -I include -o $BUILD_NAME/ebin src/*.erl
+if [ $? -ne 0 ]
+then
+    rm -r $BUILD_NAME
+    echo "Compilation failed."
+    exit 1
+fi
 cp src/*.app $BUILD_NAME/ebin
 erlc -I include -o $BUILD_NAME/tbin test/*.erl
+if [ $? -ne 0 ]
+then
+    rm -r $BUILD_NAME
+    echo "Tests couldn't be compiled."
+    exit 1
+fi
 
 # Run all the tests
 echo "Running tests..."
