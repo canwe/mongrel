@@ -55,7 +55,7 @@
 
 %% External functions
 
-%% @doc Spawns a registered process on the local node that stores the structure of records as in an ETS table.
+%% @doc Spawns a registered process on the local node that stores the structure of records in an ETS table.
 %%
 %% @spec start_link(integer()) -> {ok, pid()}    
 %% @end
