@@ -5,7 +5,12 @@ main([Dir]) ->
 	ErlPred = fun(F) -> is_erl_file(F) end,
 	ErlFiles = lists:filter(ErlPred, Files),
 	Modules = ["src/" ++ F || F <- ErlFiles],
-        edoc:files(Modules, [{dir, Dir}]).
+	case edoc:files(Modules, [{dir, Dir}]) of
+		ok ->
+			ok;
+		_ ->
+			halt(1)
+	end.	
 
 is_erl_file(FileName) when length(FileName) >= 4 ->
 	Length = length(FileName),

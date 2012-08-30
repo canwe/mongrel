@@ -51,6 +51,12 @@ rm -r $BUILD_NAME/tbin
 echo "Generating EDocs..."
 cp overview.edoc $BUILD_NAME/doc
 ./gen_doc.sh $BUILD_NAME/doc
+if [ $? -ne 0 ]
+then
+    rm -r $BUILD_NAME
+    echo "Errors while generating EDocs."
+    exit 1
+fi
 
 # Copy source files into the artifacts directory
 rsync -p -r --exclude=".*" src $BUILD_NAME
