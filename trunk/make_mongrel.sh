@@ -1,5 +1,5 @@
 #! /bin/bash
-VERSION=1.2.0
+VERSION=1.2.1
 BUILD_NAME=mongrel-$VERSION
 
 # If the archive already exists, delete it
