@@ -1,11 +1,13 @@
 #! /bin/bash
 VERSION=1.2.1
-BUILD_NAME=mongrel-$VERSION
+LIB_NAME=mongrel
+BUILD_NAME=$LIB_NAME-$VERSION
 
 # If the archive already exists, delete it
-if [ -f $BUILD_NAME.zip ]
+ls $LIB_NAME-*.zip >/dev/null 2>/dev/null
+if [ $? -eq 0 ]
 then
-    rm $BUILD_NAME.zip
+    rm $LIB_NAME-*.zip
 fi
 
 # Create directories for the build artifacts
