@@ -374,3 +374,22 @@ add_two_mappings_test_() ->
 		 {{bar, {'_id', 9}}, []} = mongrel_mapper:map(Bar),
 	     {{foo, {bar, 3, baz, 5}}, []} = mongrel_mapper:map(Foo)
      end}.
+
+% If we try to add mappings, all mappings must be valid to succeed.
+add_two_mappings_fail1_test_() ->
+	{setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ?assertError(_, mongrel_mapper:add_mappings([?mapping(bar), foo])),
+		 false = mongrel_mapper:is_mapped(bar)
+     end}.
+
+add_two_mappings_fail2_test_() ->
+	{setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ?assertError(_, mongrel_mapper:add_mappings(foo, [?mapping(bar)])),
+		 false = mongrel_mapper:is_mapped(bar)
+     end}.

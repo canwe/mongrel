@@ -64,17 +64,16 @@ start_link(EtsTableId) ->
 
 %% @doc Specfies the field identifiers associated with a record name.
 -spec(add_mapping({atom(), FieldIds::list(atom())}) -> ok).
-add_mapping({RecordName, FieldIds} = _RecordDescriptor) when is_atom(RecordName) ->
-	[true = is_atom(FieldId) || FieldId <- FieldIds],
+add_mapping({RecordName, FieldIds} = RecordDescriptor) ->
+	assert_is_mapping(RecordDescriptor),
 	server_call(add_mapping, {RecordName, FieldIds}).
 
 %% @doc Specfies the field identifiers associated with a list of record names.
--spec(add_mappings(RecordDescriptors::list({RecordName::atom(), FieldIds::list(atom())})) -> ok).
-add_mappings([]) ->
-	ok;
-add_mappings([Head|Tail]) ->
-	add_mapping(Head),
-	add_mappings(Tail).
+-spec(add_mappings(list({RecordName::atom(), FieldIds::list(atom())})) -> ok).
+add_mappings(RecordDescriptorList) ->
+	[assert_is_mapping(Mapping) || Mapping <- RecordDescriptorList],
+	[add_mapping(Mapping) || Mapping <- RecordDescriptorList],
+	ok.
 
 %% @doc Gets the field identifiers associated with a record name.
 -spec(get_mapping(atom()) -> list(atom())).
@@ -425,3 +424,6 @@ map_advanced_selector({false, _RecordName, Result}, ['$query', Query | Tail]) ->
 	map_advanced_selector({true, RecordName, Result ++ ['$query', get_flattened_map(Query)]}, Tail);
 map_advanced_selector({GotType, RecordName, Result}, [Key, Value | Tail]) ->
 	map_advanced_selector({GotType, RecordName, Result ++ [Key, get_flattened_map(Value)]}, Tail).
+
+assert_is_mapping({RecordName, FieldIds}) when is_atom(RecordName) ->
+	[true = is_atom(FieldId) || FieldId <- FieldIds].
