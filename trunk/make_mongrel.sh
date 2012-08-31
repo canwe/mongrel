@@ -3,20 +3,20 @@ VERSION=1.2.1
 LIB_NAME=mongrel
 BUILD_NAME=$LIB_NAME-$VERSION
 
-# If the archive already exists, delete it
+# If an archive already exists, delete it.
 ls $LIB_NAME-*.zip >/dev/null 2>/dev/null
 if [ $? -eq 0 ]
 then
     rm $LIB_NAME-*.zip
 fi
 
-# Create directories for the build artifacts
+# Create directories for the build artifacts.
 mkdir $BUILD_NAME
 mkdir $BUILD_NAME/doc
 mkdir $BUILD_NAME/ebin
 mkdir $BUILD_NAME/tbin
 
-# Compile the source and the tests to separate binary directories
+# Compile the source and the tests to separate binary directories.
 echo "Compiling..."
 erlc -I include -o $BUILD_NAME/ebin src/*.erl
 if [ $? -ne 0 ]
@@ -34,7 +34,7 @@ then
     exit 1
 fi
 
-# Run all the tests
+# Run all the tests.
 echo "Running tests..."
 erl -noshell -pa $BUILD_NAME/ebin -pa $BUILD_NAME/tbin -s test_all test $BUILD_NAME/tbin -s init stop
 if [ $? -ne 0 ]
@@ -44,10 +44,10 @@ then
     exit 1
 fi
 
-# We don't need to keep the test binaries
+# We don't need to keep the test binaries.
 rm -r $BUILD_NAME/tbin
 
-# Create the EDocs
+# Create the EDocs.
 echo "Generating EDocs..."
 cp overview.edoc $BUILD_NAME/doc
 ./gen_doc.sh $BUILD_NAME/doc
@@ -58,7 +58,7 @@ then
     exit 1
 fi
 
-# Copy source files into the artifacts directory
+# Copy source files into the artifacts directory.
 rsync -p -r --exclude=".*" src $BUILD_NAME
 rsync -p -r --exclude=".*" test $BUILD_NAME
 rsync -p -r --exclude=".*" include $BUILD_NAME
@@ -67,7 +67,7 @@ cp make_mongrel.sh $BUILD_NAME
 cp gen_doc.sh $BUILD_NAME
 cp releases.txt $BUILD_NAME
 
-# Remove some cruft
+# Remove some cruft.
 rm $BUILD_NAME/doc/overview.edoc
 rm $BUILD_NAME/doc/edoc-info
 cp overview.edoc $BUILD_NAME
