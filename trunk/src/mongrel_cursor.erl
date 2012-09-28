@@ -25,7 +25,7 @@
 %%%           This second difference implies that a mongrel cursor cannot be used outside of the
 %%%           action of a mongrel:do/5 function. If you want a cursor to be available outside the 
 %%%           scope of the do/5 function, you must explictly set a timeout for the cursor. 
-%%%           The value of infinity is acceptable as a timeout.%%%      <li>
+%%%           The value of infinity is acceptable as a timeout.
 %%%      </li>
 %%% @end
 
