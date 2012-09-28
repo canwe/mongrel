@@ -13,15 +13,20 @@
 %%% @author CA Meijer
 %%% @copyright 2012 CA Meijer
 %%% @doc Mongrel cursor process. This module provides functions for getting documents from a cursor.
-%%%      Unlike a mongo cursor, this cursor may need to read from the database when the cursor
-%%%      is read since the document that is read may reference nested documents that need to be 
-%%%      fetched. 
 %%%
-%%       A second difference from a mongo cursor is that a mongrel cursor terminates when
-%%%      the process that created the cursor terminates. This second difference implies that a mongrel 
-%%%      cursor cannot be used outside of the action of a mongrel:do/5 function. If you want a cursor
-%%%      to be available outside the scope of the do/5 function, you must explictly set a timeout for
-%%%      the cursor. The value of infinity is acceptable as a timeout.
+%%%      There are two differences between a mongo cursor and a mongrel cursor:
+%%%      <li>
+%%%          Reading from a mongrel cursor may result in one or more trips to the database.
+%%%          If a record may contains nested records, the nested records will need to be read
+%%%          from the database; i.e. the database will be hit when a cursor is read.
+%%%      </li>
+%%%      <li>
+%%%           A mongrel cursor terminates when the process that created the cursor terminates. 
+%%%           This second difference implies that a mongrel cursor cannot be used outside of the
+%%%           action of a mongrel:do/5 function. If you want a cursor to be available outside the 
+%%%           scope of the do/5 function, you must explictly set a timeout for the cursor. 
+%%%           The value of infinity is acceptable as a timeout.%%%      <li>
+%%%      </li>
 %%% @end
 
 -module(mongrel_cursor).
