@@ -15,6 +15,7 @@
 %%% @doc Mongrel cursor process. This module provides functions for getting documents from a cursor.
 %%%
 %%%      There are two differences between a mongo cursor and a mongrel cursor:
+%%%      <ul>
 %%%      <li>
 %%%          Reading from a mongrel cursor may result in one or more trips to the database.
 %%%          If a record may contains nested records, the nested records will need to be read
@@ -27,6 +28,7 @@
 %%%          scope of the do/5 function, you must explictly set a timeout for the cursor. 
 %%%          The value of infinity is acceptable as a timeout.
 %%%      </li>
+%%%      </ul>
 %%% @end
 
 -module(mongrel_cursor).
