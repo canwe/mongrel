@@ -91,7 +91,7 @@ is_mapped(RecordName) when is_atom(RecordName) ->
 		[{RecordName, _FieldIds}] ->
 			true
 	end;
-is_mapped(Record) when is_tuple(Record) andalso size(Record) >= 1 ->
+is_mapped(Record) when is_tuple(Record) andalso size(Record) > 0 ->
 	[RecordName|FieldValues] = tuple_to_list(Record),
 	case server_call(get_mapping, RecordName) of
 		[] ->
@@ -111,7 +111,7 @@ has_id(RecordName) when is_atom(RecordName) ->
 									   Result or (FieldId =:= '_id')
 				 end,
 	lists:foldl(CheckHasId, false, FieldIds);
-has_id(Record) when is_tuple(Record) andalso size(Record) > 1 ->
+has_id(Record) when is_tuple(Record) andalso size(Record) > 0 ->
 	[RecordName|FieldValues] = tuple_to_list(Record),
 	has_id(RecordName) andalso length(FieldValues) =:= length(get_mapping(RecordName)). 
 

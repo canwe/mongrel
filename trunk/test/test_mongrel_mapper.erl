@@ -230,6 +230,15 @@ map_basic_test_() ->
 		 Foo = #foo{bar=3, baz=5},
 	     {{foo, {bar, 3, baz, 5}}, []} = mongrel_mapper:map(Foo)
      end}.
+
+map_no_fields_test_() ->
+	{setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ok = mongrel_mapper:add_mapping(?mapping(no_fields)), 
+	     {{no_fields, {}}, []} = mongrel_mapper:map(#no_fields{})
+     end}.
 	
 map_undefined_value_test_() ->
 	{setup,
