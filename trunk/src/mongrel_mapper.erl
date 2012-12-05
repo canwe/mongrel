@@ -88,10 +88,10 @@ is_mapped(RecordName) when is_atom(RecordName) ->
 	case server_call(get_mapping, RecordName) of
 		[] ->
 			false;
-		[{RecordName, _}] ->
+		[{RecordName, _FieldIds}] ->
 			true
 	end;
-is_mapped(Record) when is_tuple(Record) andalso size(Record) > 1 ->
+is_mapped(Record) when is_tuple(Record) andalso size(Record) >= 1 ->
 	[RecordName|FieldValues] = tuple_to_list(Record),
 	case server_call(get_mapping, RecordName) of
 		[] ->

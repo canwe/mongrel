@@ -22,6 +22,7 @@
 -record(bar, {'_id'}).
 -record(baz, {x=2, y=8}).
 -record(buzz, {'_id', w, z}).
+-record(no_fields, {}).
 
 setup() ->
     T = ets:new(myets,[named_table,public]), 
@@ -115,6 +116,32 @@ is_mapped_record_false_test_() ->
 	     false = mongrel_mapper:is_mapped({foo, 1, 3, 4})
      end}.
 
+is_mapped_no_fields_true_test_() ->
+    {setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ok = mongrel_mapper:add_mapping(?mapping(no_fields)), 
+	     true = mongrel_mapper:is_mapped(no_fields)
+     end}.
+
+is_mapped_no_fields_true2_test_() ->
+    {setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     ok = mongrel_mapper:add_mapping(?mapping(no_fields)), 
+	     true = mongrel_mapper:is_mapped(#no_fields{})
+     end}.
+
+is_mapped_empty_tuple_test_() ->
+    {setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+	     false = mongrel_mapper:is_mapped({})
+     end}.
+	
 is_mapped_non_atom_test_() ->
     {setup,
      fun setup/0,
