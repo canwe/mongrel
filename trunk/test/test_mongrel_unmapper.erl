@@ -24,6 +24,7 @@
 -record(bar, {'_id', x, z=3}).
 -record(baz, {x=2, y=8}).
 -record(buzz, {'_id', w, z}).
+-record(no_fields, {}).
 
 setup() ->
     T = ets:new(myets,[named_table,public]), 
@@ -68,6 +69,15 @@ set_non_existent_field_test_() ->
 			  % the storing of information in a document that may be important
 			  % but is not needed by the Erlang application (e.g. _id)
 			  #baz{} = mongrel_mapper:set_field(#baz{}, z, 123, undefined)
+     end}.
+
+unmap_empty_record_test_() ->
+    {setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+			  mongrel_mapper:add_mapping(?mapping(no_fields)),
+			  #no_fields{} = mongrel_mapper:unmap(no_fields, {}, undefined)
      end}.
 	
 unmap_basic_test_() ->
@@ -159,4 +169,23 @@ unmap_doc_with_complex_list_value2_test_() ->
 			  BarExpected = #bar{'_id' = 1234, z = [1,2, [3, #foo{baz=0}]]},
 			  Bar = mongrel_mapper:unmap(bar, {'_id', 1234, z, [1,2, [3, {?TYPE_REF, foo, baz, 0}]]}, undefined),
 			  BarExpected = Bar
+     end}.
+
+unmap_doc_with_unexpected_fields_test_() ->
+    {setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+			  mongrel_mapper:add_mapping(?mapping(bar)),
+			  BarExpected = #bar{'_id' = 1234, z = <<1>>},
+			  BarExpected = mongrel_mapper:unmap(bar, {'_id', 1234, field1, value1, z, <<1>>, field2, value2}, undefined)
+     end}.
+
+unmap_doc_with_unexpected_fields2_test_() ->
+    {setup,
+     fun setup/0,
+     fun cleanup/1,
+     fun () ->
+			  mongrel_mapper:add_mapping(?mapping(no_fields)),
+			  #no_fields{} = mongrel_mapper:unmap(no_fields, {'_id', 1234}, undefined)
      end}.
