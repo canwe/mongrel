@@ -25,7 +25,7 @@ then
     echo "Compilation failed."
     exit 1
 fi
-cp src/*.app $BUILD_NAME/ebin
+cp src/$LIB_NAME.app.src $BUILD_NAME/ebin/$LIB_NAME.app
 erlc -I include -o $BUILD_NAME/tbin test/*.erl
 if [ $? -ne 0 ]
 then
