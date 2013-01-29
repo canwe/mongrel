@@ -8,7 +8,7 @@ svn checkout http://mongrel.googlecode.com/svn/trunk/ mongrel
 }}}
 
 
-== Compiling the Code ==
+== Making and Packaging Mongrel ==
 Under Linux, the *make_mongrel.sh* bash script can be used to build the project
 {{{
 cd mongrel
@@ -16,4 +16,9 @@ cd mongrel
 }}}
 The bash script compiles the code, runs the unit tests and creates a zip archive.
 
-If someone wants to create a rebar or a sinan build file for mongrel, it would be appreciated.
+
+== Using Rebar to Build ==
+After checking out the code, you can compile, test and generate the EDocs using rebar as
+  * rebar compile
+  * rebar eunit
+  * rebar doc
