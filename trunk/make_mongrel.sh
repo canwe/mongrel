@@ -1,5 +1,5 @@
 #! /bin/bash
-VERSION=1.2.3
+VERSION=1.2.4
 LIB_NAME=mongrel
 BUILD_NAME=$LIB_NAME-$VERSION
 
