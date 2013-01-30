@@ -12,3 +12,5 @@ Release history since 1.1.0
         improved edoc comments, other refactorings.
 1.2.1 - Fixed typos, improved build script, minor refactoring.
 1.2.2 - Documentation improvements, fixed bug for records without fields.
+1.2.3 - Project can be built using rebar.
+
