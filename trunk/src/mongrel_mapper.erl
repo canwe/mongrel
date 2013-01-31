@@ -162,7 +162,7 @@ map(Record) ->
 unmap(RecordName, Document, MapReferenceFun) when is_atom(RecordName) ->
 	FieldIds = get_mapping(RecordName),
 	DocumentList = tuple_to_list(Document),
-	InitialDocument = list_to_tuple([RecordName] ++ lists:map(fun(_) -> undefined end, FieldIds)),
+	InitialDocument = list_to_tuple([RecordName] ++ [undefined || _FieldId <- FieldIds]),
 	unmap_record(DocumentList, MapReferenceFun, InitialDocument).
 
 %% @doc Maps a selector specifying fields to match to a document. Nested records are "flattened" using the
