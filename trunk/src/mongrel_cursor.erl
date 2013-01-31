@@ -11,7 +11,7 @@
 % the License.
 
 %%% @author CA Meijer
-%%% @copyright 2012 CA Meijer
+%%% @copyright 2012-2013 CA Meijer
 %%% @doc Mongrel cursor process. This module provides functions for getting documents from a cursor.
 %%%
 %%%      There are two differences between a mongo cursor and a mongrel cursor:

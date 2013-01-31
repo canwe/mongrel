@@ -11,7 +11,7 @@
 % the License.
 
 %%% @author CA Meijer
-%%% @copyright 2012 CA Meijer
+%%% @copyright 2012-2013 CA Meijer
 %%% @doc Mongrel API. This module provides functions for creating, reading, updating and deleting
 %%       documents. The functions exposed are similar to the CRUD functions exposed by the
 %%       mongo API of the MongoDB driver. While the mongo functions take collection and document 

@@ -11,7 +11,7 @@
 % the License.
 
 %%% @author CA Meijer
-%%% @copyright 2012 CA Meijer
+%%% @copyright 2012-2013 CA Meijer
 %%% @doc Mongrel mapping server. This module exports functions to map records
 %%%      to documents and to map documents to records. Additional functions
 %%%      map records to selector, projection and modifier documents.

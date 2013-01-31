@@ -11,7 +11,7 @@
 % the License.
 
 %%% @author CA Meijer
-%%% @copyright 2012 CA Meijer
+%%% @copyright 2012-2013 CA Meijer
 %%% @doc Mongrel application. This module implements the application behaviour. On startup
 %%%      the application creates an ETS table and starts the mongrel supervisor (mongrel_sup).
 %%% @end

@@ -11,7 +11,7 @@
 % the License.
 
 %%% @author CA Meijer
-%%% @copyright 2012 CA Meijer
+%%% @copyright 2012-2013 CA Meijer
 %%% @doc Provides convenience function for encapsulating data types in the form required by
 %%       the Erlang MongoDB driver.
 %%% @end
