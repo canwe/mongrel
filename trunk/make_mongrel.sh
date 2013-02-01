@@ -1,5 +1,5 @@
 #! /bin/bash
-VERSION=1.2.4
+VERSION=1.2.5
 LIB_NAME=mongrel
 BUILD_NAME=$LIB_NAME-$VERSION
 
@@ -49,7 +49,6 @@ rm -r $BUILD_NAME/tbin
 
 # Create the EDocs.
 echo "Generating EDocs..."
-cp overview.edoc $BUILD_NAME/doc
 ./gen_doc.sh $BUILD_NAME/doc
 if [ $? -ne 0 ]
 then
@@ -68,9 +67,7 @@ cp gen_doc.sh $BUILD_NAME
 cp releases.txt $BUILD_NAME
 
 # Remove some cruft.
-rm $BUILD_NAME/doc/overview.edoc
 rm $BUILD_NAME/doc/edoc-info
-cp overview.edoc $BUILD_NAME
 
 # Zip it all up.
 echo "Packaging..."
