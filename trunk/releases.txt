@@ -15,3 +15,4 @@ Release history since 1.1.0
 1.2.3 - Project can be built using rebar.
 1.2.4 - mongrel.app.src excluded from archive, minor code cleanup, updated
         copyright dates.
+1.2.5 - Greater conformance to OTP file layout.
