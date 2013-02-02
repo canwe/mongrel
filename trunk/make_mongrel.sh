@@ -66,9 +66,6 @@ cp make_mongrel.sh $BUILD_NAME
 cp gen_doc.sh $BUILD_NAME
 cp releases.txt $BUILD_NAME
 
-# Remove some cruft.
-rm $BUILD_NAME/doc/edoc-info
-
 # Zip it all up.
 echo "Packaging..."
 zip -q $BUILD_NAME.zip -r $BUILD_NAME
