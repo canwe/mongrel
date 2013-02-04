@@ -156,7 +156,7 @@ handle_cast(_Message, State) ->
 %% @doc Responds to non-OTP messages. The messages that are handled are a timeout and the
 %%      the termination of the parent process.
 -spec(handle_info(Message::any(), State::record()) -> {stop, normal, State::record()}|{noreply, State::record()}).
-handle_info({'DOWN', _Ref, process, Pid, _Reason}, State) when Pid =:= State#state.parent_process, State#state.die_with_parent ->
+handle_info({'DOWN', _Ref, process, Pid, _Reason}, State) when Pid =:= State#state.parent_process andalso State#state.die_with_parent ->
 	{stop, normal, State};
 handle_info(timeout, State) ->
 	{stop, normal, State};

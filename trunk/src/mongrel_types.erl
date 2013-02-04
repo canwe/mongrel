@@ -50,7 +50,7 @@ regex(X) when is_binary(X) ->
 
 %% @doc Encapsulates a regex with options as 3-tuple expected by the MongoDB driver.
 -spec(regex(X::binary(), Y::binary()) -> {regex, X::binary(), Y::binary()}).
-regex(X, Y) when is_binary(X), is_binary(Y) ->
+regex(X, Y) when is_binary(X) andalso is_binary(Y) ->
 	{regex, X, Y}.
 
 %% @doc Returns a unique object ID. 

@@ -91,7 +91,7 @@ is_mapped(RecordName) when is_atom(RecordName) ->
 		[{RecordName, _FieldIds}] ->
 			true
 	end;
-is_mapped(Record) when is_tuple(Record), size(Record) > 0 ->
+is_mapped(Record) when is_tuple(Record) andalso size(Record) > 0 ->
 	[RecordName|FieldValues] = tuple_to_list(Record),
 	case server_call(get_mapping, RecordName) of
 		[] ->
@@ -111,7 +111,7 @@ has_id(RecordName) when is_atom(RecordName) ->
 									   Result or (FieldId =:= '_id')
 				 end,
 	lists:foldl(CheckHasId, false, FieldIds);
-has_id(Record) when is_tuple(Record), size(Record) > 0 ->
+has_id(Record) when is_tuple(Record) andalso size(Record) > 0 ->
 	[RecordName|FieldValues] = tuple_to_list(Record),
 	has_id(RecordName) andalso length(FieldValues) =:= length(get_mapping(RecordName)). 
 
@@ -194,7 +194,7 @@ map_projection(ProjectionRecord) ->
 %%      intended to be convenient. For consistency though, this convenient hack may be removed in
 %%      later releases of Mongrel.
 -spec(map_modifier(atom(), Modifier::{Key::atom(), record()}) -> {Key::atom(), bson:document(), NestedDocuments::list(bson:document())}).
-map_modifier(Collection, {ModifierKey, ModifierValue}) when is_atom(ModifierKey), is_tuple(ModifierValue) ->
+map_modifier(Collection, {ModifierKey, ModifierValue}) when is_atom(ModifierKey) andalso is_tuple(ModifierValue) ->
 	case is_mapped(ModifierValue) of
 		false ->
 			{ModifierKey, ModifierValue, []};
