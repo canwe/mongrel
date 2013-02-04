@@ -1,5 +1,5 @@
 #! /bin/bash
-VERSION=1.2.5
+VERSION=1.2.6
 LIB_NAME=mongrel
 BUILD_NAME=$LIB_NAME-$VERSION
 
@@ -49,6 +49,7 @@ rm -r $BUILD_NAME/tbin
 
 # Create the EDocs.
 echo "Generating EDocs..."
+cp doc/overview.edoc $BUILD_NAME/doc
 ./gen_doc.sh $BUILD_NAME/doc
 if [ $? -ne 0 ]
 then
