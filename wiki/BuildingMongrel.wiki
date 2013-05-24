@@ -25,3 +25,5 @@ rebar compile
 rebar eunit
 rebar doc
 }}}
+
+Also, see AddingMongrelAsARebarDependency.
