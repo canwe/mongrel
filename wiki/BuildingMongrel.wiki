@@ -26,4 +26,4 @@ rebar eunit
 rebar doc
 }}}
 
-Also, see AddingMongrelAsARebarDependency.
+Also, see AddingMongrelAsRebarDependency for details on adding Mongrel as a rebar dependency.
