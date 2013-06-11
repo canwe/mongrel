@@ -251,6 +251,8 @@ code_change(_OldVersion, State, _Extra) ->
 
 
 %% Internal functions
+% A convenience function to ensure that synchronous calls don't time out
+% (by specifying a timeout of infinity).
 server_call(Command, Args) ->
 	gen_server:call(?SERVER, {Command, Args}, infinity).
 
@@ -425,5 +427,7 @@ map_advanced_selector({false, _RecordName, Result}, ['$query', Query | Tail]) ->
 map_advanced_selector({GotType, RecordName, Result}, [Key, Value | Tail]) ->
 	map_advanced_selector({GotType, RecordName, Result ++ [Key, get_flattened_map(Value)]}, Tail).
 
+% A mapping maps a record name to a list of field IDs where the record name
+% and field IDs must all be atoms.
 assert_is_mapping({RecordName, FieldIds}) when is_atom(RecordName) ->
 	[true = is_atom(FieldId) || FieldId <- FieldIds].
