@@ -18,7 +18,7 @@
 %%%      <ul>
 %%%      <li>
 %%%          Reading from a mongrel cursor may result in one or more trips to the database.
-%%%          If a record may contains nested records, the nested records will need to be read
+%%%          If a record contains nested records, the nested records will also need to be read
 %%%          from the database; i.e. the database will be hit when a cursor is read.
 %%%      </li>
 %%%      <li>
