@@ -15,8 +15,8 @@
 -include_lib("mongrel/include/mongrel_macros.hrl").
 
 % Our "domain objects" are books, authors and reviews
--record(book, {?id(), title, isbn, author, reviews}).
--record(author, {?id(), first_name, last_name}).
+-record(book, {'_id', title, isbn, author, reviews}).
+-record(author, {'_id', first_name, last_name}).
 -record(review, {star_rating, comment}).
 
 add_mappings() ->
@@ -29,18 +29,18 @@ add_mappings() ->
 	
 populate() ->
 	% Create some books, authors and reviews.
-	Author1 = #author{last_name = <<"Eliott">>},
-	Book1 = #book{title = <<"Thirty Days in the Samarkind Desert with the Duchess of Kent">>, author = Author1},
+	Author1 = #author{?id(), last_name = <<"Eliott">>},
+	Book1 = #book{?id(), title = <<"Thirty Days in the Samarkind Desert with the Duchess of Kent">>, author = Author1},
 	Review2 = #review{star_rating = 5, comment = <<"By an Irish gentleman whose name eludes me">>},
-	Book2 = #book{title = <<"A Hundred and One Ways to start a Fight">>, reviews = [Review2]},
-	Author3 = #author{first_name = <<"Edmund">>, last_name = <<"Wells">>},
-	Book3 = #book{title = <<"David Copperfield">>, author = Author3},
-	Book4 = #book{title = <<"Grate Expectations">>, author = Author3},
-	Author5 = #author{first_name = <<"Charles">>, last_name = <<"Dikkens">>},
-	Book5 = #book{title = <<"Rarnaby Budge">>, author = Author5},
+	Book2 = #book{?id(),  title = <<"A Hundred and One Ways to start a Fight">>, reviews = [Review2]},
+	Author3 = #author{?id(), first_name = <<"Edmund">>, last_name = <<"Wells">>},
+	Book3 = #book{?id(), title = <<"David Copperfield">>, author = Author3},
+	Book4 = #book{?id(), title = <<"Grate Expectations">>, author = Author3},
+	Author5 = #author{?id(), first_name = <<"Charles">>, last_name = <<"Dikkens">>},
+	Book5 = #book{?id(), title = <<"Rarnaby Budge">>, author = Author5},
 	Review6a = #review{comment = <<"Warning: Not the expurgated version.">>},
 	Review6b = #review{star_rating = 2, comment = <<"Might be interesting to bird-watchers.">>},
-	Book6 = #book{title = <<"Olsen's Standard Book of British Birds">>, reviews = [Review6a, Review6b]},
+	Book6 = #book{?id(), title = <<"Olsen's Standard Book of British Birds">>, reviews = [Review6a, Review6b]},
 
 	{ok, Connection} = mongo:connect(localhost),
 	mongrel:do(safe, master, Connection, mongrel_books, 
