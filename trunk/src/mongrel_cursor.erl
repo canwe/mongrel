@@ -87,7 +87,7 @@ rest(Cursor) ->
 
 %% @doc Returns a list of records referenced by a cursor up to a specified limit.
 -spec(take(integer(), cursor()) -> list(record())).
-take(Limit, Cursor) when Limit >= 0 ->
+take(Limit, Cursor) when is_integer(Limit), Limit >= 0 ->
 	gen_server:call(Cursor, {take, Limit}, infinity).
 
 %% @doc Returns the mongo:cursor() used by a mongrel:cursor(). Using the mongo:cursor() can
