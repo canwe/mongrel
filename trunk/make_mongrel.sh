@@ -3,6 +3,13 @@ VERSION=1.2.7
 LIB_NAME=mongrel
 BUILD_NAME=$LIB_NAME-$VERSION
 
+make_failed()
+{
+    rm -r $BUILD_NAME
+    echo $1
+    exit 1
+}
+
 # If an archive already exists, delete it.
 if ls $LIB_NAME-*.zip >/dev/null 2>/dev/null
 then
@@ -19,25 +26,19 @@ mkdir $BUILD_NAME/tbin
 echo "Compiling..."
 if ! erlc -I include -o $BUILD_NAME/ebin src/*.erl 
 then
-    rm -r $BUILD_NAME
-    echo "Compilation failed."
-    exit 1
+    make_failed "Compilation failed."
 fi
 cp src/$LIB_NAME.app.src $BUILD_NAME/ebin/$LIB_NAME.app
 if ! erlc -I include -o $BUILD_NAME/tbin test/*.erl
 then
-    rm -r $BUILD_NAME
-    echo "Tests couldn't be compiled."
-    exit 1
+    make_failed "Tests couldn't be compiled."
 fi
 
 # Run all the tests.
 echo "Running tests..."
 if ! erl -noshell -pa $BUILD_NAME/ebin -pa $BUILD_NAME/tbin -s test_all test $BUILD_NAME/tbin -s init stop
 then
-    rm -r $BUILD_NAME
-    echo "Not all tests passed."
-    exit 1
+    make_failed "Not all tests passed."
 fi
 
 # We don't need to keep the test binaries.
@@ -48,9 +49,7 @@ echo "Generating EDocs..."
 cp doc/overview.edoc $BUILD_NAME/doc
 if ! ./gen_doc.sh $BUILD_NAME/doc
 then
-    rm -r $BUILD_NAME
-    echo "Errors while generating EDocs."
-    exit 1
+    make_failed "Errors while generating EDocs."
 fi
 
 # Copy source files into the artifacts directory.
