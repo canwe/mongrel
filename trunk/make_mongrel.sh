@@ -4,8 +4,7 @@ LIB_NAME=mongrel
 BUILD_NAME=$LIB_NAME-$VERSION
 
 # If an archive already exists, delete it.
-ls $LIB_NAME-*.zip >/dev/null 2>/dev/null
-if [ $? -eq 0 ]
+if ls $LIB_NAME-*.zip >/dev/null 2>/dev/null
 then
     rm $LIB_NAME-*.zip
 fi
@@ -18,16 +17,14 @@ mkdir $BUILD_NAME/tbin
 
 # Compile the source and the tests to separate binary directories.
 echo "Compiling..."
-erlc -I include -o $BUILD_NAME/ebin src/*.erl
-if [ $? -ne 0 ]
+if ! erlc -I include -o $BUILD_NAME/ebin src/*.erl 
 then
     rm -r $BUILD_NAME
     echo "Compilation failed."
     exit 1
 fi
 cp src/$LIB_NAME.app.src $BUILD_NAME/ebin/$LIB_NAME.app
-erlc -I include -o $BUILD_NAME/tbin test/*.erl
-if [ $? -ne 0 ]
+if ! erlc -I include -o $BUILD_NAME/tbin test/*.erl
 then
     rm -r $BUILD_NAME
     echo "Tests couldn't be compiled."
@@ -36,8 +33,7 @@ fi
 
 # Run all the tests.
 echo "Running tests..."
-erl -noshell -pa $BUILD_NAME/ebin -pa $BUILD_NAME/tbin -s test_all test $BUILD_NAME/tbin -s init stop
-if [ $? -ne 0 ]
+if ! erl -noshell -pa $BUILD_NAME/ebin -pa $BUILD_NAME/tbin -s test_all test $BUILD_NAME/tbin -s init stop
 then
     rm -r $BUILD_NAME
     echo "Not all tests passed."
@@ -50,8 +46,7 @@ rm -r $BUILD_NAME/tbin
 # Create the EDocs.
 echo "Generating EDocs..."
 cp doc/overview.edoc $BUILD_NAME/doc
-./gen_doc.sh $BUILD_NAME/doc
-if [ $? -ne 0 ]
+if ! ./gen_doc.sh $BUILD_NAME/doc
 then
     rm -r $BUILD_NAME
     echo "Errors while generating EDocs."
