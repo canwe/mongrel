@@ -11,7 +11,7 @@
 %%% the License.
 
 %%% @author CA Meijer
-%%% @copyright 2012-2013 CA Meijer
+%%% @copyright 2012-2014 CA Meijer
 %%% @doc Mongrel supervisor. This module starts the mongrel_mapper server and
 %%%      restarts the server if it crashes.
 %%% @end
