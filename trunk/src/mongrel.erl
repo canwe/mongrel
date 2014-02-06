@@ -11,7 +11,7 @@
 %%% the License.
 
 %%% @author CA Meijer
-%%% @copyright 2012-2013 CA Meijer
+%%% @copyright 2012-2014 CA Meijer
 %%% @doc Mongrel API. This module provides functions for creating, reading, updating and deleting
 %%       documents. The functions exposed are similar to the CRUD functions exposed by the
 %%       mongo API of the MongoDB driver. While the mongo functions take collection and document 
@@ -26,10 +26,12 @@
 -include("mongrel.hrl").
 
 %% API
--export([count/1,
+-export([connect/1,
+		 count/1,
 		 count/2,
 		 delete/1,
 		 delete_one/1,
+		 disconnect/1,
 		 do/5,
 		 find/1,
 		 find/2,
@@ -58,6 +60,16 @@
 -type(action() :: fun()).
 
 %% External functions
+
+%% @doc Connects to a MongoDB server.
+-spec(connect(mongo:host()) -> {ok, mongo:connection()} | {error, mongo:reason()}).
+connect(Host) ->
+	mongo:connect(Host).
+
+%% @doc Closes a connection to a MongoDB server.
+-spec(disconnect(mongo:connection()) -> ok).
+disconnect(Conn) ->
+	mongo:disconnect(Conn).
 
 %% @doc Counts the number of documents that match some selector.
 -spec(count(record()) -> integer()).
