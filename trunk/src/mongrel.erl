@@ -46,6 +46,8 @@
 		 modify/2,
 		 replace/2,
 		 repsert/2,
+		 rs_connect/1,
+		 rs_disconnect/1,
 		 save/1]).
 
 %% gen_server callbacks
@@ -65,11 +67,6 @@
 -spec(connect(mongo:host()) -> {ok, mongo:connection()} | {error, mongo:reason()}).
 connect(Host) ->
 	mongo:connect(Host).
-
-%% @doc Closes a connection to a MongoDB server.
--spec(disconnect(mongo:connection()) -> ok).
-disconnect(Conn) ->
-	mongo:disconnect(Conn).
 
 %% @doc Counts the number of documents that match some selector.
 -spec(count(record()) -> integer()).
@@ -94,6 +91,11 @@ delete(SelectorRecord) ->
 delete_one(SelectorRecord) ->
 	{Collection, Selector} = mongrel_mapper:map_selector(SelectorRecord),
 	mongo:delete_one(Collection, Selector).
+
+%% @doc Closes a connection to a MongoDB server.
+-spec(disconnect(mongo:connection()) -> ok).
+disconnect(Conn) ->
+	mongo:disconnect(Conn).
 
 %% @doc Executes an 'action' using the specified read and write modes to a database using a connection.
 %%      An 'action' is a function that takes no arguments. The fun will usually invoke functions
@@ -219,6 +221,16 @@ repsert(SelectorRecord, NewRecord) ->
 	mongo:repsert(Collection, Selector, NewDocument),
 	[mongo:save(ChildCollection, ChildDocument) || {ChildCollection, ChildDocument} <- ChildDocuments].
 	
+%% @doc Creates a cache of connections to a MongoDB replica set.
+-spec(rs_connect(mongo_replset:replset()) -> mongo_replset:rs_connection()).
+rs_connect(Replset) ->
+	mongo:rs_connect(Replset).
+
+%% @doc Closes a cache of replica set connections to MongoDB.
+-spec(rs_disconnect(mongo_replset:rs_connection()) -> ok).
+rs_disconnect(ReplsetConn) ->
+	mongo:rs_disconnect(ReplsetConn).
+
 %% @doc Upserts a record into a collection with the same name as the record type. If the 
 %%      record contains nested records with '_id' fields, the nested documents are upserted
 %%      into their appropriate collections as well.
